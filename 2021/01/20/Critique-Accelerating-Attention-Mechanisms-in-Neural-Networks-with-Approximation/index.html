@@ -17,7 +17,7 @@
   <meta name="description" content="artificial intelligence">
   <meta name="author" content="Reacubeth">
   <meta name="keywords" content="artificial intelligence; finance">
-  <title>Critique: Why GPUs are slow at executing NFAs and how to make them faster. - OmegaXYZ</title>
+  <title>Critique: Accelerating Attention Mechanisms in Neural Networks with Approximation - OmegaXYZ</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Critique: Why GPUs are slow at executing NFAs and how to make them faster.">
+            <span class="h2" id="subtitle" title="Critique: Accelerating Attention Mechanisms in Neural Networks with Approximation">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-20 12:42" pubdate>
-        Wednesday, January 20th 2021, 12:42 pm
+      <time datetime="2021-01-20 22:38" pubdate>
+        Wednesday, January 20th 2021, 10:38 pm
       </time>
     </span>
   
@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k words
+      1.7k words
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      24
        minutes
     </span>
   
@@ -241,33 +241,34 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Critique: Why GPUs are slow at executing NFAs and how to make them faster.</h1>
+            <h1 style="display: none">Critique: Accelerating Attention Mechanisms in Neural Networks with Approximation</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p><strong>Paper</strong>: Liu, Hongyuan, Sreepathi Pai, and Adwait Jog. “Why GPUs are slow at executing NFAs and how to make them faster.” Proceedings of the Twenty-Fifth International Conference on Architectural Support for Programming Languages and Operating Systems. 2020.</p>
+<p><strong>Paper</strong>: Ham, Tae Jun, et al. “A^ 3: Accelerating Attention Mechanisms in Neural Networks with Approximation.” 2020 IEEE International Symposium on High Performance Computer Architecture (HPCA). IEEE, 2020.</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3373376.3378471">Paper PDF</a></p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This paper introduces a new dynamic scheme that effectively balances compute utilization with reduced memory usage for GPUs when executing NFAs. Specifically, the authors identify two performance bottlenecks in the NFA matching process, one is the excessive data movement, the other is poor compute utilization. To tackle these problems, three proposals are demonstrated including 1) using on-chip resources when possible, 2) converting memory accesses to compute 3) mapping only active states to threads. Overall, this study achieves better performance compared with the previous state-of-art GPU implementations of NFAs across a wide range of emerging applications.</p>
-<p>In general, this paper focuses on solving a challenge domain-specific problem in the area of GPU. I hold a positive view of the sophisticated scheme and well-designed experiments in this paper for the reason that the methodology and experiments of the article utilize the characteristics of NFA and GPU, and the latter gives sufficient evidence to support these methods. Moreover, to the best of my knowledge, in the context of NFA processing, no prior work has considered both data movement and utilization problems in conjunction. However, it should be noted that there are some trivial flaws in the choice of the comparison method and the organization of the paper is not satisfactory.</p>
-<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/GPU_NFA202101201211.jpg" srcset="/img/loading.gif" alt=""></p>
-<p>In the following parts, I will analyze the whole paper in detail in terms of writing skills, method design, and experiment, etc.</p>
-<h2 id="Strengths"><a href="#Strengths" class="headerlink" title="Strengths"></a>Strengths</h2><p>The strengths of the paper have several aspects. First of all, unlike most papers, the title of this paper asked two questions directly which gives an outlook for readers to preview the context of the article directly.</p>
-<p>From a high perspective, I think the proposed new data structure to store NFA pattern in this paper is sophisticated and utilize the characteristics of GPU execution since it is challenging for GPUs to obtain enough threads for assigning node data structure which utilizes a 256-bit array of match set, 4 outgoing edges in a 64-bit integer, and an 8-bit array of attributes (3 bits are used to record start state, accept state and always-active state; other 2bits are used for compression). The authors examine the behavior of states and determine which states have high activity frequency and which states have low activity frequency. For example, one of the schemes uses the 1KB prefix of the 1MB input as the profiling input. If a state has an activation frequency more than a threshold in the profiling input, the process considers it as a hot state during the entire execution.</p>
-<p>In addition, I think the new data structure can save many redundant spaces which is be of some use for future GPU optimization. In the structure, each node consumes 41 bytes leading to 41N bytes in total compared to 4096N bytes for the alphabet-oriented transition table. Apparently, the scheme only uses 1% space of the traditional table which enables the execution to better exploit the on-chip resources of GPU for topology and the match sets of NFAs.</p>
-<p>In terms of the proposed compressing match set, it is intuitively feasible to reduce the number of checking the array of trigger symbols. Specifically, the compressing match set will be marked by the first element and the last element when the arrays have special attributes such as containing a continuous set of bit 1s or a continuous set of bit 0s. When a thread examines a matching set that has that attribute, it can examine in that range instead of checking all the bits. Based on that behavior, high-frequency states will be mapped one-one to threads while the low-frequency states will be stored in a list, and a thread takes responsibility for one or many elements in the list which depends on the available computational resource. Besides, from the beginning to the end of the article, it illustrates the complicated process above by using a simple but comprehensive NFA example that only contains 4 different states. Thus, it is easy for us to understanding and analyzing the whole story to some extent.</p>
-<p>Next, as far as I’m concerned, one of the biggest advantages of this paper is that the experiments are detailed and well designed. On one hand, the experiments have designed several evaluation methods which are complete and standardized. These methods contain the characteristics of evaluated NFA applications, throughput enhancement results, absolute throughput with the proposed schemes, effect on data movement reduction, and performance sensitivity to Volta GPU architecture. In particular, all the experimental data gives a convincing analysis. On the other hand, in the appendix of the paper, the authors provide the artifact where there are source code, datasets, workflow, and dependencies, etc. All of them further prove the correctness of the experiment which can provide much convenience for future researchers eventually.</p>
-<p>Considering the result of the performance sensitivity to Volta GPU architecture, the proposed schemes (HotStart-MaC and HotStart) show more than 15× speedup over iNFAnt[1], indicating their effectiveness on newer GPU architectures which is a great improvement compared to other methods.</p>
-<p>Last but not least, another strength of the article is the proposed method doesn’t contain additional hardware (i.e. hardware-free) to improve the performance of computing NFA-based applications which greatly reduces the cost of deployment and maintenance. Advanced users can easily use the given scheme with the artifact to optimize a specific program.</p>
-<h2 id="Weaknesses"><a href="#Weaknesses" class="headerlink" title="Weaknesses"></a>Weaknesses</h2><p>When talking about the weakness, the organization or structure of the article should be mentioned first inevitably. The paper including several sections, they are Introduction, background, problem/previous efforts, addressing the data movement problem via match set analysis, addressing the utilization problem via activity analysis, evaluation methodology, experimental results, related work, and conclusions. Obviously, there is redundancy between the chapters which will confuse readers to a certain degree. Sections like background, problem, and previous efforts, and related work can be merged together which provides the preliminaries to the proposed methods. Moreover, the experiments should become an independent chapter including addressing the proposed methods, evaluation methodology, and experimental results rather than splitting them into several independent sections.</p>
-<p>Although the experiment is very well designed, its comparison algorithm is old in section 6. For example, iNFAnt[1] and NFA-CG[2] were proposed almost ten years ago which makes the contributions downgraded and unconvincing. Therefore, from my perspective, the paper is supposed to find more comparison methods that maybe not necessarily the application to NFAs to show the advancement of the proposed GPU schemes.</p>
-<p>Also, in the experimental part, I find that the effect on data movement reduction isn’t improved a lot, though the utilization optimization reduces the number of thread blocks that access the transition table and the input streams. It can be observed that HotStart (section 5), HotStart-MAC (section 5), NT (section 4.2), and NT-MAC (section 4.3) use 98.9%, 99.3%, 95.9%, and 96.1% gld_transactions respectively while NFA-CG uses 88.2% gld_transactions where the first four names are proposed schemes. One of the possible reasons is that many current methods have improved the data movement reduction to the limitation which is hard to make a great move. Thus, it can be concluded that the data movement reduction is the necessary optimization aspect for NFAs execution. Here, many researchers may consider whether there are more directions for optimization[3] in technique rather than simply reducing data movement.</p>
-<p>Furthermore, as a domain-specific paper, the related work (section 8) only demonstrates the work on reducing data movement and improving utilization used in the main process of the newly proposed method. It would be better if the related work could introduce more up-to-date specific methods or GPU accelerators so that readers will have a better understanding of the bottlenecks to improve the throughput of the NFA matching process using GPUs.</p>
-<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>As  I have said above, the proposed scheme is hardware-free but if we take the throughput into consideration again, we can infer that the performance could be better with the help of hardware/software co-design optimizations to close the remaining gap between hardware and software.</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Generally, the work has more strengths than weaknesses. Strengths include the sophisticated data structure and detailed experiments while there are some flaws in the organization of the article and out-of-date comparison methods. In summary, this paper gives a novel way to optimize NFA execution in GPU from the perspective of the software and can guide future work to optimize GPGPU in the aspect of data movement and structure compression.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] Cascarano, Niccolo, et al. “iNFAnt: NFA pattern matching on GPGPU devices.” ACM SIGCOMM Computer Communication Review 40.5 (2010): 20-26.<br>[2] Zu, Yuan, et al. “GPU-based NFA implementation for memory efficient high speed regular expression matching.” Proceedings of the 17th ACM SIGPLAN symposium on Principles and Practice of Parallel Programming. 2012.<br>[3] Vu, Kien Chi. “Accelerating bit-based finite automaton on a GPGPU device.” (2020).</p>
+<p><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/abstract/document/9065498/">Paper PDF</a></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The paper designs a specialized hardware accelerator called A3 that targets attention mechanisms in neural networks where approximation potential is exploited. In particular, the work of A3 identiﬁes the importance of the emerging neural network primitive and accelerates it with software-hardware co-design to achieve orders of magnitude energy efﬁciency improvement over the conventional hardware. Besides, A3 architects the specialized hardware pipeline for vanilla and approximate attention mechanism while a test chip at TSMC 40nm is taped out. Experimental results have demonstrated that the accelerator achieves significant performance and energy efficiency gains over conventional hardware.</p>
+<p>This paper is well written and organized. It contains four main contributions including a novel approximation algorithm, a specialized hardware pipeline, better performance, and efficiency. To be specific, it states and analyzes specific problems in attention mechanism, proposes solutions based on hardware accelerator, and gives convincing experiments to evaluate the pros and cons of solutions. The proposed approximate accelerator is exquisitely designed except for its applicability and commercial value which implies the technique here may well not keep up with the diversity of different neural networks. Overall, this paper is worth reading for AI researchers. I have a positive view of it.</p>
+<p>In the next few sections, I will discuss this paper from several aspects including the creativity of the research, the way to solve the problem, experimental design, and applicability.</p>
+<h2 id="Motivation-and-Creativity"><a href="#Motivation-and-Creativity" class="headerlink" title="Motivation and Creativity"></a>Motivation and Creativity</h2><p>In section Ⅱ-A and Ⅱ-B, it shows that attention mechanism is a widely used strategy in most state-of-the-art neural networks such as Word2Vec, Glove, and FastText to identify and retrieve data relevant to the input which is differentiable content-based similarity search. Most of the networks are in the field of natural language processing, computer vision, and recommendation system. The paper analyzes the computational process of the dot product, softmax normalization, and weight sum during the attention mechanism in detail. Afterward, the paper draws the conclusion that most of the computations performed in the matrix-vector multiplication have very little impact on the ﬁnal output since most score values become near-zero after the softmax normalization which can be approximated and optimized. Thus, the A3 accelerator is around the corner to be introduced in the paper. </p>
+<p>From my perspective, the motivation in the paper is enlightened from Amdahl’s Law [1] one of which is the importance to accelerate relatively less optimized portion. Therefore, the neural network primitives should be optimized and there exists a lot of research in this field. In the open literature, it is the first time [2] the attention mechanism is considered in the level of accelerator hardware with approximation which shows the superiority of the paper to a certain extent. Obviously, the paper provides readers a detailed explanation of the motivation such as the pseudocode (figure 1.) and the example application of attention mechanism (figure 2.) to devise such accelerator. Readers can easily understand how the following A3 accelerator is designed and reduces computation dramatically. </p>
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>This paper introduces two different versions of A3: Base-A3 (section III) and Approx-A3 (section IV and V). Base-A3 is for base attention while Approx-A3 is for approximate attention. For the former, each module’s hardware design directly maps to its computation. Therefore, the latter is more worthy of discussion since the approximate mechanism is proposed here. </p>
+<p>Particularly, ideas on how to devise approximate attention have two critical steps. One is the identification of candidates that are relevant to the query in the attention mechanism with limited computation. The other is to avoid computation for likely to be non-relevant rows. There is a key intuition: can compute the estimated attention score with little computation if we can somehow identify a few largest and a few smallest component multiplication results.</p>
+<p>For Approx-A3, the authors design a new set of hardware accelerator modules for candidate selection and post-scoring approximation. It uses the naïve idea that addition is better than multiplication. For example, given a matrix of size n by d, Approx-A3 sorts each column of the matrix stored in SRAM firstly. Then two pointers of size 1 by d aim to fetch the max and min elements in the sorted column for m times to update the estimated attention in place of the element-wise multiplication for query vector and sorted matrix. Thus, the algorithm only performs 2 by m multiplications, which is much smaller than n by d. In a word, the algorithm updates two estimated attention scores per iteration: largest and smallest component multiplication results. Finally, rows with positive estimated attention scores after m iterations become candidates for approximate attention.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/aaa_nn2202101202246.jpg" srcset="/img/loading.gif" alt="Chip"></p>
+<p>I have noticed that there is a sorting operation in the process when approximation and I thought it would affect the performance of A3 at the beginning. The sorting operation (O(logn)) will take up additional computing resources and authors should carefully adopt sorting. Fortunately, authors have considered the performance overhead of sort. In section IV, the paper shows sorting may not be on the critical path, and the same key matrix is re-used for multiple queries for workloads with the self-attention mechanism which can be amortized over multiple queries. In addition, for memory network models, information can be preprocessed before the query arrives. Sorting does not affect query time. In this part, I hope that the paper could have further argumentation and analysis in detail. We can conclude that the design of A3 obeys the principle of locality which is the reuse of data and instructions.</p>
+<p>For the issue of test chip, I find that authors used n = 320 and d = 64 to ﬁt their largest workload in section VI-D. In most neural networks, the problem dimension (d) can easily exceed 64. I wonder whether such an accelerator can handle high-dimensional attention mechanism. In other words, for query vector with more than 64 dimensions (d &gt; 64), does it need to design related methods at the hardware level? The question is not answered in the paper.</p>
+<p>In my opinion, the approximate attention is well designed and hardware-friendly. On the one hand, it reduces a lot of unnecessary calculations with high efficiency. On the other hand, it also satisfies the demand of chip design where query vector register, sorted key matrix SRAM, pointers, multipliers, and component multiplication buffer are needed for full-pipelining. Approx-A3 sets the stage for significantly improving the performance of neural network computation for attention mechanism.</p>
+<h2 id="Experiments-and-Evaluation"><a href="#Experiments-and-Evaluation" class="headerlink" title="Experiments and Evaluation"></a>Experiments and Evaluation</h2><p>The paper demonstrates several experiments to evaluate the A3 accelerator. Selection VI is divided into four parts: A (Workloads), B (Accuracy Evaluation), C (Performance Results) and D (Area, Power, Energy and Test Chip).</p>
+<p>From the performance results, it can be seen that Approximation enables even further throughput improvement (2.6-7.0×) as well as latency improvement (1.6-8.0×). Thus, when it comes to area and energy efficiency, more energy can be saved (&gt;10,000× more efficient than CPU). The result proves that the previous design of Approx-A3 is very effective. This is useful if such a technique is applied to the mobile terminal under the circumstance that the die size is ignored. Furthermore, it should be noted that most energy is spent on output computation and candidate selection which can be understood easily since the element-wise multiplication is replaced by approximation.</p>
+<p>However, we all know that the approximation scheme affects end-to-end model accuracy. From VI-B, the results show that the conservative approximation scheme loses about 1-1.6% accuracy metric while the aggressive approximation scheme loses about 8-9% accuracy metric. Additionally, the amount of top entries selected shows that the aggressive approximation scheme may miss some items with high attention scores.</p>
+<p>How to define conservative and aggressive is a challenge for users though the result looks pretty good and convincing. The paper says there are two configurable parameters (M: iteration count for candidate selection algorithm, T: the threshold for post-scoring selection algorithm) to balance the efficiency and accuracy. Naturally, the larger M, the accuracy of the model increases and the lower T indicates more conservative approximation while the higher T indicates more aggressive approximation. However, it will lose beneﬁts of approximation with a large number of candidates and affect the accuracy with higher T value. How to choose appropriate M and T for users? This question is still ambiguous to readers and has not been discussed in depth. As far as I’m concerned, the influence on the training of the upstream neural network is still debatable. Moreover, experiments on accuracy performance for approximation scheme should choose more datasets and attention based state-of-the-art algorithms to prove its generalization.</p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>The idea in this paper is simple but effective for attention mechanism. Nevertheless, I hold the view that it is very difficult for A3 accelerator to make commercial applications. Then, I will state three intuitive reasons. Firstly, neural networks are changing and updating with each passing day, attention mechanism is only a small part of it and someday in the future, it will become obsolete definitely. I prefer to analyze more general neural network components such as Transformer for accelerator rather than a specific domain. Secondly, the cost of deploying A3 accelerators will become very high, not to mention the reduction of die size. Last but not least, one of the contributions in this paper is approximate attention algorithm, maybe we can optimize attention mechanism at the software level instead of the hardware level further. </p>
+<p>Thus, it would be more interesting if the author could introduce their future work. Of course, the solution to reduce computations in this paper is worth learning and it is of great help to the design of general hardware component for neural networks in the future.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] Gustafson, John L. “Reevaluating Amdahl’s law.” Communications of the ACM 31.5 (1988): 532-533.<br>[2] Lu, Siyuan, et al. “Hardware Accelerator for Multi-Head Attention and Position-Wise Feed-Forward in the Transformer.” arXiv preprint arXiv:2009.08605 (2020).</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.omegaxyz.com/2020/12/31/nfa_gpu/">Original</a> </p>
+<p><a target="_blank" rel="noopener" href="https://www.omegaxyz.com/2020/10/16/a3-hpca2020/">Original</a> </p>
 </blockquote>
 
             </div>
@@ -301,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/20/Critique-Accelerating-Attention-Mechanisms-in-Neural-Networks-with-Approximation/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Critique: Accelerating Attention Mechanisms in Neural Networks with Approximation</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/20/Defend-the-truth-seeing-is-not-believing-anymore/">
-                        <span class="hidden-mobile">Defend the truth: seeing is not believing anymore</span>
+                      <a href="/2021/01/20/Reading-Why-GPUs-are-slow-at-executing-NFAs-and-how-to-make-them-faster/">
+                        <span class="hidden-mobile">Critique: Why GPUs are slow at executing NFAs and how to make them faster.</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -331,8 +326,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https://en.omegaxyz.com/2021/01/20/Reading-Why-GPUs-are-slow-at-executing-NFAs-and-how-to-make-them-faster/';
-        this.page.identifier = '/2021/01/20/Reading-Why-GPUs-are-slow-at-executing-NFAs-and-how-to-make-them-faster/';
+        this.page.url = 'https://en.omegaxyz.com/2021/01/20/Critique-Accelerating-Attention-Mechanisms-in-Neural-Networks-with-Approximation/';
+        this.page.identifier = '/2021/01/20/Critique-Accelerating-Attention-Mechanisms-in-Neural-Networks-with-Approximation/';
       };
       Fluid.utils.waitElementVisible('disqus_thread', function () {
         var d = document, s = d.createElement('script');
