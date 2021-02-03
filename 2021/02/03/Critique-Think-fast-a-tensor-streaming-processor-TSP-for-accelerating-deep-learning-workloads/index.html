@@ -17,7 +17,7 @@
   <meta name="description" content="artificial intelligence">
   <meta name="author" content="Reacubeth">
   <meta name="keywords" content="artificial intelligence; finance">
-  <title>von Neumann Graph Entropy: Python Implementation - OmegaXYZ</title>
+  <title>Critique: Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads - OmegaXYZ</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="von Neumann Graph Entropy: Python Implementation">
+            <span class="h2" id="subtitle" title="Critique: Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-25 23:50" pubdate>
-        Monday, January 25th 2021, 11:50 pm
+      <time datetime="2021-02-03 11:40" pubdate>
+        Wednesday, February 3rd 2021, 11:40 am
       </time>
     </span>
   
@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      470 words
+      1.6k words
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      22
        minutes
     </span>
   
@@ -241,18 +241,36 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">von Neumann Graph Entropy: Python Implementation</h1>
+            <h1 style="display: none">Critique: Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads</h1>
             
             <div class="markdown-body">
-              <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>The von Neumann graph entropy (VNGE) facilitates measurement of information divergence and distance between graphs in a graph sequence. </p>
-<p>Given an undirected graph <script type="math/tex">G=(V, E, A)</script>, where <script type="math/tex">A</script> is the symmetric weight matrix. The degree matrix is defined as <script type="math/tex">D=diag(d_1,...,d_n)</script> and the Laplacian matrix is defined as <script type="math/tex">L=D-A</script>, its eigenvalues <script type="math/tex">\lambda_i</script> are called Laplacian spectrum. Here, <script type="math/tex">H_{vn}(G)</script> is called von Neumann graph entropy.</p>
-<script type="math/tex; mode=display">H_{vn}(G)=-\sum \limits_{i=1}^{n}(\frac{\lambda_i}{vol(G)}\log\frac{\lambda_i}{vol(G)})</script><p>where the volume of a graph is <script type="math/tex">vol(G)=\sum_{i=1}^{n}\lambda_i=trace(L)</script>. The time complexity of calculating von Neumann graph entropy is <script type="math/tex">O(n^3)</script>.</p>
-<p>I provide a Python version code to calculate VNGE. It should be noted that Chen. et al give an approximate method called FINGER[1] which reduces the cubic complexity of VNGE to linear complexity in the number of nodes and edges. </p>
-<p>TheCodes of VNGE and FINGER are as follows.</p>
-<h2 id="Codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Name: VNGE</span><br><span class="hljs-comment"># Author: Reacubeth</span><br><span class="hljs-comment"># Time: 2021/1/25 16:01</span><br><span class="hljs-comment"># Mail: noverfitting@gmail.com</span><br><span class="hljs-comment"># Site: www.omegaxyz.com</span><br><span class="hljs-comment"># *_*coding:utf-8 *_*</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> scipy.sparse.linalg.eigen.arpack <span class="hljs-keyword">import</span> eigsh<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">normalized_laplacian</span>(<span class="hljs-params">adj_matrix</span>):</span><br>    nodes_degree = np.<span class="hljs-built_in">sum</span>(adj_matrix, axis=<span class="hljs-number">1</span>)<br>    nodes_degree_sqrt = <span class="hljs-number">1</span>/np.sqrt(nodes_degree)<br>    degree_matrix = np.diag(nodes_degree_sqrt)<br>    eye_matrix = np.eye(adj_matrix.shape[<span class="hljs-number">0</span>])<br>    <span class="hljs-keyword">return</span> eye_matrix - degree_matrix * adj_matrix * degree_matrix<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unnormalized_laplacian</span>(<span class="hljs-params">adj_matrix</span>):</span><br>    nodes_degree = np.<span class="hljs-built_in">sum</span>(adj_matrix, axis=<span class="hljs-number">1</span>)<br>    degree_matrix = np.diag(nodes_degree)<br>    <span class="hljs-keyword">return</span> degree_matrix - adj_matrix<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">VNGE_exact</span>(<span class="hljs-params">adj_matrix</span>):</span><br>    start = time.time()<br>    nodes_degree = np.<span class="hljs-built_in">sum</span>(adj_matrix, axis=<span class="hljs-number">1</span>)<br>    c = <span class="hljs-number">1.0</span> / np.<span class="hljs-built_in">sum</span>(nodes_degree)<br>    laplacian_matrix = c * unnormalized_laplacian(adj_matrix)<br>    eigenvalues, _ = np.linalg.eig(laplacian_matrix)<br>    eigenvalues[eigenvalues &lt; <span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br>    pos = eigenvalues &gt; <span class="hljs-number">0</span><br>    H_vn = - np.<span class="hljs-built_in">sum</span>(eigenvalues[pos] * np.log2(eigenvalues[pos]))<br>    print(<span class="hljs-string">&#x27;H_vn exact:&#x27;</span>, H_vn)<br>    print(<span class="hljs-string">&#x27;Time:&#x27;</span>, time.time() - start)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">VNGE_FINGER</span>(<span class="hljs-params">adj_matrix</span>):</span><br>    start = time.time()<br>    nodes_degree = np.<span class="hljs-built_in">sum</span>(adj_matrix, axis=<span class="hljs-number">1</span>)<br>    c = <span class="hljs-number">1.0</span> / np.<span class="hljs-built_in">sum</span>(nodes_degree)<br>    edge_weights = <span class="hljs-number">1.0</span> * adj_matrix[np.nonzero(adj_matrix)]<br>    approx = <span class="hljs-number">1.0</span> - np.square(c) * (np.<span class="hljs-built_in">sum</span>(np.square(nodes_degree)) + np.<span class="hljs-built_in">sum</span>(np.square(edge_weights)))<br>    laplacian_matrix = unnormalized_laplacian(adj_matrix)<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    eigenvalues, _ = np.linalg.eig(laplacian_matrix)  # the biggest reduction</span><br><span class="hljs-string">    eig_max = c * max(eigenvalues)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    eig_max, _ = eigsh(laplacian_matrix, <span class="hljs-number">1</span>, which=<span class="hljs-string">&#x27;LM&#x27;</span>)<br>    eig_max = eig_max[<span class="hljs-number">0</span>] * c<br>    H_vn = - approx * np.log2(eig_max)<br>    print(<span class="hljs-string">&#x27;H_vn approx:&#x27;</span>, H_vn)<br>    print(<span class="hljs-string">&#x27;Time:&#x27;</span>, time.time() - start)<br><br><br>nodes_num = <span class="hljs-number">3000</span><br>sparsity = <span class="hljs-number">0.01</span><br><br><br>tmp_m = np.random.uniform(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, (nodes_num, nodes_num))<br>pos1 = tmp_m &gt; sparsity<br>pos2 = tmp_m &lt;= sparsity<br>tmp_m[pos1] = <span class="hljs-number">0</span><br>tmp_m[pos2] = <span class="hljs-number">1</span><br>tmp_m = np.triu(tmp_m)<br>adj_m = tmp_m + np.transpose(tmp_m)<br><br>VNGE_exact(adj_m)<br>VNGE_FINGER(adj_m)<br></code></pre></td></tr></table></figure>
-<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">H_vn exact: 11.496599468152386<br>Time: 13.172455072402954<br>H_vn approx: 10.63029083591871<br>Time: 0.23734617233276367<br></code></pre></td></tr></table></figure>
-<p>[1] Chen, Pin-Yu, et al. “Fast incremental von neumann graph entropy computation: Theory, algorithm, and applications.” International Conference on Machine Learning. PMLR, 2019.</p>
-<p>OmegaXYZ.com<br>All rights reserved.</p>
+              <blockquote>
+<p><strong>Paper</strong>: Abts, Dennis, et al. “Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads.” 2020 ACM/IEEE 47th Annual International Symposium on Computer Architecture (ISCA). IEEE, 2020.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9138986">Paper PDF</a></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This work introduces a novel processor architecture called Tensor Streaming Processor (TSP) which utilizes the property of abundant data parallelism in machine learning workloads and the advantages of the producer-consumer stream programming model in terms of performance and power efficiency. From my point of view, I think that the designed architecture is sophisticated due to its consideration in the trade-offs for workloads and power envelope. Strictly speaking, there is room for improvement in the experimental part. Moreover, it should be noted that what is different from other papers is its section organization. In this paper, it adopts an engineering and empirical structure to describe the whole story. </p>
+<p>The work is conducted by a famous and emerging artificial intelligence company called Groq, Inc . Their proposed TSP has gained a significant influence and profit in the market as well. Hence, For more fairness and rationality, the way of this critique is slightly distinguishable from the previous. In the following parts, I will analyze the paper in detail at the aspects of clarity, novelty, technical correctness with reproducibility, etc. independently rather than ambiguous and general strengths or weaknesses.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/tsp-one-chip202102031150.jpg" srcset="/img/loading.gif" alt=""></p>
+<h2 id="Clarity"><a href="#Clarity" class="headerlink" title="Clarity"></a>Clarity</h2><p>The paper is clear enough but could benefit from some revision. As I mentioned above, its section organization is different from other papers. </p>
+<p>Specifically, the work starts with the introduction for functional-sliced tile microarchitecture and the stream programming abstraction built upon it in SECTION.I. Then, the authors describe their ﬁrst implementation of the TSP in 14nm ASIC technology, memory system, and functional units, programming model, instruction set architecture (ISA), and design tradeoffs for efﬁcient operation at batch-size of 1 in SECTION.II traditionally. Afterward, the contents in SECTION.III are about the instruction set where the paper shows the instruction control unit, memory, vector processor, matrix execution module, and switch execution module. Definitely, this part should belong to the methodology. I take it for granted that authors have considered the complexity of architecture design. This is why the authors separate these methods empirically which lacks compactness to a certain degree. </p>
+<p>The confusing thing is coming, the title of SECTION.IV is ResNet50 [1]. ResNet50 is a popular image classiﬁcation model published in CVPR in 2016. All experimental results including operating regimes, matrix operations, and on-chip network in SECTION.V are based on it. The authors spent a lot of space to introduce ResNetT50 as an example in terms of resource bottlenecks and quantization with TSP. At the end of the experiment parts, SECTION.V provides initial proof-points and performance results of mapping the ResNet50 v2 image classiﬁcation model to their underlying tensor streaming processor. Additionally, the technical correctness and reproducibility in these sections will be discussed later in the critique.</p>
+<p>Thus, I think the methodology and experimental parts can be re-organized furtherly. For example, SECTION.III (INSTRUCTION SET) can be merged with SECTION.II (ARCHITECTURE OVERVIEW) which leads to a new section introducing the detailed architecture design with several subsections. Similarly, SECTION.IV (ResNet50) and SECTION.V (DISCUSSION) can also be merged since their contents are all related to the experiments of ResNet50. Of course, these are just my humble opinions and circumstances alter cases.</p>
+<h2 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h2><p>There is no doubt that this article has many innovations. One of the strengths is that in contrast to conventional multicore, where each tile is a heterogeneous collection of functional units but globally homogeneous, the proposed architecture inverts that and it has local functional homogeneity but chip-wide (global) heterogeneity.</p>
+<p>To be more specific, in terms of functional slicing in SECTION.I.A and SECTION.II.B, the TSP re-organizes the homogeneous two-dimensional mesh of cores into the functionally sliced microarchitecture. That is to say, each tile implements a specific function and is stacked vertically into a “slice” in the Y-dimension of the 2D on-chip mesh which disaggregates the basic elements of a core. Thus, a sequence of instructions specific to its on-chip role can control each functional slice independently. For instance, the memory slices support Read and Write but not Add or Mul, which are only in vector and matrix execution module slices. </p>
+<p>Besides, the proposed TSP exploits the advantages of parallel lanes and streams. The TSP’s programming model is a producer-consumer model where each functional slice acts as a consumer and a producer of one or more streams. In this work (SECTION.I.B), streams are implemented in hardware by a chip-wide streaming register file. They are architecturally visible and transport operands and results between slices. A common software pattern involves reading operand data from one or more memory slices that are then subsequently consumed and operated on by a downstream arithmetic slice. More details can be found in the original paper.</p>
+<p>In summary, compared with the complex traditional architecture based on CPU, GPU, and FPGA, the proposed TSP also simplifies the certification deployment of the architecture, enabling customers to implement scalable, efficient systems easily and quickly.</p>
+<p>What’s more, from my knowledge scope and some statements in paper [3], a pattern begins to emerge, as most specialized processors rely on a series of sub-processing elements which each contribute to increasing throughput of a larger processor. </p>
+<p>Meanwhile, there are plenty of methods to achieve multiply-and-accumulate operations parallelism, one of the most renowned techniques is the systolic array [2] and is utilized by the proposed TSP. It is not a new concept. Systolic architectures were first proposed back in tx tsphe late 1970s [2] and have become widely popularized since powering the hardware DeepMind [4] used for the AlphaGo system to defeat Lee Sedol, the world champion of the board game Go in 2015. </p>
+<h2 id="Technical-Correctness-amp-Reproducibility"><a href="#Technical-Correctness-amp-Reproducibility" class="headerlink" title="Technical Correctness &amp; Reproducibility"></a>Technical Correctness &amp; Reproducibility</h2><p>In this part, the experimental parts will be analyzed in detail. As I have mentioned above, the paper implements ResNet50 only. It can be seen in SECTION.IV, the authors define an objective first, which aims at maximizing functional slice utilization and minimizing latency. That is to say, the TSP is supposed to take advantage of streaming operands into the vector and matrix execution modules as much as possible. Then, a detailed resource bottlenecks analysis is given to construct a feasible optimization model. It is worth mentioning that the paper provides readers with quantization and the results of model accuracy in SECTION.D. </p>
+<p>The results in this paper are encouraging at first glance and the authors claim a fairly staggering performance increase. However, the primary test case is just ResNet50 which cannot convince readers and users. As far as I’m concerned, the work should demonstrate and compare more applications with deep learning models. Only in this way can we truly accept the model proposed by the paper technically.</p>
+<p>From the discussion part in SECTION.V, I find that their initial implementation of ResNet50 was a proof-point and reference model for compiler validation, performing an inference query of the ResNet50 model in &lt; 43μs, yielding a throughput of 20.4K images per second with each image sample being a separate query. In another word, the batch size in this case is 1. Though the work does specifically call this a “Streaming Processor” in the whole story, I’m not sure that using anything besides a batch size of 1 for inference is entirely fair, but perhaps I’m misunderstanding what they mean by streaming.</p>
+<p>Furtherly, it is challenging to directly compare a GPU vs an ASIC style chip like this though. I would like to see more detailed performance comparisons vs something like Google’s TPU [5] since GPUs are throughput optimized. </p>
+<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>In fact, Groq’s TSP architecture is driven by the widely-applied artificial intelligence, which can achieve computational flexibility and large-scale parallelism without the synchronization overhead of traditional GPU and CPU architecture. This provides an innovative example for the industry undoubtedly. Besides, the proposed TSP can support both traditional machine learning models and new machine learning models. It is also currently running on customer sites for x86 and non-x86 systems. At the same time, because the TSP is designed for applications in related fields such as computer vision and artificial intelligence, it frees up more silicon space dedicated to dynamic instruction execution. Last but not least, in terms of latency and inference performance, the proposed TSP is much faster than any other architecture on most tasks.</p>
+<p>Academically, this paper is not satisfactory to some extent due to its unusual paper organization and experimental lack though, it is still an excellent work with significant progress in the industry of AI-based architecture. Therefore, I think, the shortcomings in the paper are trivial. </p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.<br>[2] H. Kung and C. E. Leiserson, “Systolic Arrays (for VLSI),” in Proceedings of Sparse Matrix, vol. 1. Society for industrial and applied mathematics, 1979, pp. 256–282.<br>[3] Azghadi, Mostafa Rahimi, et al. “Hardware implementation of deep network accelerators towards healthcare and biomedical applications.” arXiv preprint arXiv:2007.05657 (2020).<br>[4] Gibney, Elizabeth. “Google AI algorithm masters ancient game of Go.” Nature News 529.7587 (2016): 445.<br>[5] Jouppi, Norman P., et al. “In-datacenter performance analysis of a tensor processing unit.” Proceedings of the 44th Annual International Symposium on Computer Architecture. 2017.</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.omegaxyz.com/2021/02/03/tsp/">Original</a> </p>
+</blockquote>
 
             </div>
             <hr>
@@ -270,9 +288,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                      <a class="hover-with-bg" href="/tags/computer-architecture/">computer architecture</a>
                     
-                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                      <a class="hover-with-bg" href="/tags/paper/">paper</a>
                     
                   </div>
                 
@@ -285,18 +303,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/03/Critique-Think-fast-a-tensor-streaming-processor-TSP-for-accelerating-deep-learning-workloads/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Critique: Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/20/Critique-Accelerating-Attention-Mechanisms-in-Neural-Networks-with-Approximation/">
-                        <span class="hidden-mobile">Critique: Accelerating Attention Mechanisms in Neural Networks with Approximation</span>
+                      <a href="/2021/01/25/von-Neumann-Graph-Entropy-Python-Implementation/">
+                        <span class="hidden-mobile">von Neumann Graph Entropy: Python Implementation</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -315,8 +327,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function() {
-        this.page.url = 'https://en.omegaxyz.com/2021/01/25/von-Neumann-Graph-Entropy-Python-Implementation/';
-        this.page.identifier = '/2021/01/25/von-Neumann-Graph-Entropy-Python-Implementation/';
+        this.page.url = 'https://en.omegaxyz.com/2021/02/03/Critique-Think-fast-a-tensor-streaming-processor-TSP-for-accelerating-deep-learning-workloads/';
+        this.page.identifier = '/2021/02/03/Critique-Think-fast-a-tensor-streaming-processor-TSP-for-accelerating-deep-learning-workloads/';
       };
       Fluid.utils.waitElementVisible('disqus_thread', function () {
         var d = document, s = d.createElement('script');
@@ -479,45 +491,6 @@
 
 
 
-
-  
-
-  
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
-
-  
 
 
 
