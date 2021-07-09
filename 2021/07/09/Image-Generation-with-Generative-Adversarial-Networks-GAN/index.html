@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/omegaxyz-logo-100.png">
+  <link rel="icon" type="image/png" href="/img/omegaxyz-logo-100.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="artificial intelligence">
+  <meta name="author" content="Reacubeth">
+  <meta name="keywords" content="artificial intelligence; finance">
+  <title>Image Generation with Generative Adversarial Networks (GAN) - OmegaXYZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"en.omegaxyz.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":65,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OmegaXYZ</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archive
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Category
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tag
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/xyjigsaw">
+                <i class="iconfont icon-github-fill"></i>
+                Github
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://www.omegaxyz.com">
+                <i class="iconfont icon-bookmark-fill"></i>
+                中文
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/blue.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Image Generation with Generative Adversarial Networks (GAN)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Reacubeth
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-09 21:54" pubdate>
+        Friday, July 9th 2021, 9:54 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k words
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       minutes
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Image Generation with Generative Adversarial Networks (GAN)</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In this section, I implemented some variants of DCGAN[1], which is one of the generative adversarial networks. The DCGAN model has replaced the fully connected layer with the global pooling layer. It is universally acknowledged that the purpose of GAN is to achieve Nash equilibrium between the discriminator and the generator. That is to say, neither of these two models should perform very well. When I applied the DCGAN to dataset CUB200-2011, I find that the loss of the generator converges to zero rapidly while the loss of the discriminator stays high, which shows that the discriminator can not distinguish the fake images from all images in this case. To improve its performance, I add a fully connected layer at the end of the convolution layer in the discriminator. The outcome is better than the original DCGAN. </p>
+<h2 id="Codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h2><p>main.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Name: DCGAN_main</span><br><span class="hljs-comment"># Author: Reacubeth</span><br><span class="hljs-comment"># Time: 2021/5/28 19:47</span><br><span class="hljs-comment"># Mail: noverfitting@gmail.com</span><br><span class="hljs-comment"># Site: www.omegaxyz.com</span><br><span class="hljs-comment"># *_*coding:utf-8 *_*</span><br><br><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><span class="hljs-keyword">import</span> torch.utils.data<br><span class="hljs-keyword">import</span> torchvision.datasets <span class="hljs-keyword">as</span> dset<br><span class="hljs-keyword">import</span> torchvision.transforms <span class="hljs-keyword">as</span> transforms<br><span class="hljs-keyword">import</span> torchvision.utils <span class="hljs-keyword">as</span> vutils<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> matplotlib.animation <span class="hljs-keyword">as</span> animation<br><span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> HTML<br><br><span class="hljs-keyword">from</span> DCGAN <span class="hljs-keyword">import</span> Discriminator, Generator<br><br><br>manualSeed = <span class="hljs-number">999</span><br>random.seed(manualSeed)<br>torch.manual_seed(manualSeed)<br><br>path = <span class="hljs-string">&#x27;bird/CUB_200_2011/&#x27;</span><br>ROOT_TRAIN = path + <span class="hljs-string">&#x27;dataset/train/&#x27;</span><br><br><br>workers = <span class="hljs-number">2</span><br>batch_size = <span class="hljs-number">128</span><br>image_size = <span class="hljs-number">128</span><br>nc = <span class="hljs-number">3</span><br>nz = <span class="hljs-number">100</span><br>ngf = <span class="hljs-number">64</span><br>ndf = <span class="hljs-number">64</span><br>num_epochs = <span class="hljs-number">200</span><br>lr = <span class="hljs-number">0.0002</span>  <span class="hljs-comment"># 0.0002</span><br>beta1 = <span class="hljs-number">0.5</span><br>ngpu = <span class="hljs-number">4</span><br><br>dataset = dset.ImageFolder(root=ROOT_TRAIN,<br>                           transform=transforms.Compose([<br>                               transforms.Resize(image_size),<br>                               transforms.CenterCrop(image_size),<br>                               transforms.ToTensor(),<br>                               transforms.Normalize((<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>), (<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>)),<br>                           ]))<br><br>dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,<br>                                         shuffle=<span class="hljs-literal">True</span>, num_workers=workers)<br><br><br>device = torch.device(<span class="hljs-string">&quot;cuda:0&quot;</span> <span class="hljs-keyword">if</span> (torch.cuda.is_available() <span class="hljs-keyword">and</span> ngpu &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)<br><br>real_batch = <span class="hljs-built_in">next</span>(<span class="hljs-built_in">iter</span>(dataloader))<br>plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))<br>plt.axis(<span class="hljs-string">&quot;off&quot;</span>)<br>plt.title(<span class="hljs-string">&quot;Training Images&quot;</span>)<br>plt.imshow(np.transpose(vutils.make_grid(real_batch[<span class="hljs-number">0</span>].to(device)[:<span class="hljs-number">64</span>], padding=<span class="hljs-number">2</span>, normalize=<span class="hljs-literal">True</span>).cpu(), (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)))<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">weights_init</span>(<span class="hljs-params">m</span>):</span><br>    classname = m.__class__.__name__<br>    <span class="hljs-keyword">if</span> classname.find(<span class="hljs-string">&#x27;Conv&#x27;</span>) != -<span class="hljs-number">1</span>:<br>        nn.init.normal_(m.weight.data, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.02</span>)<br>    <span class="hljs-keyword">elif</span> classname.find(<span class="hljs-string">&#x27;BatchNorm&#x27;</span>) != -<span class="hljs-number">1</span>:<br>        nn.init.normal_(m.weight.data, <span class="hljs-number">1.0</span>, <span class="hljs-number">0.02</span>)<br>        nn.init.constant_(m.bias.data, <span class="hljs-number">0</span>)<br><br><br>netG = Generator(ngpu).to(device)<br><span class="hljs-keyword">if</span> (device.<span class="hljs-built_in">type</span> == <span class="hljs-string">&#x27;cuda&#x27;</span>) <span class="hljs-keyword">and</span> (ngpu &gt; <span class="hljs-number">1</span>):<br>    netG = nn.DataParallel(netG, <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(ngpu)))<br>netG.apply(weights_init)<br>print(netG)<br><br>netD = Discriminator(ngpu).to(device)<br><span class="hljs-keyword">if</span> (device.<span class="hljs-built_in">type</span> == <span class="hljs-string">&#x27;cuda&#x27;</span>) <span class="hljs-keyword">and</span> (ngpu &gt; <span class="hljs-number">1</span>):<br>    netD = nn.DataParallel(netD, <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(ngpu)))<br>netD.apply(weights_init)<br>print(netD)<br><br><br>criterion = nn.BCELoss()<br><br><span class="hljs-comment"># Create batch of latent vectors that we will use to visualize</span><br><span class="hljs-comment">#  the progression of the generator</span><br>fixed_noise = torch.randn(<span class="hljs-number">64</span>, nz, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, device=device)<br><br>real_label = <span class="hljs-number">1.</span><br>fake_label = <span class="hljs-number">0.</span><br><br>optimizerD = optim.Adam(netD.parameters(), lr=lr, betas=(beta1, <span class="hljs-number">0.999</span>))<br>optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=(beta1, <span class="hljs-number">0.999</span>))<br><br><span class="hljs-comment"># Training Loop</span><br><br><span class="hljs-comment"># Lists to keep track of progress</span><br>img_list = []<br>G_losses = []<br>D_losses = []<br>iters = <span class="hljs-number">0</span><br><br>print(<span class="hljs-string">&quot;Starting Training Loop...&quot;</span>)<br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_epochs):<br>    <span class="hljs-keyword">for</span> i, data <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(dataloader, <span class="hljs-number">0</span>):<br>        netD.zero_grad()<br>        real_cpu = data[<span class="hljs-number">0</span>].to(device)<br>        b_size = real_cpu.size(<span class="hljs-number">0</span>)<br>        label = torch.full((b_size,), real_label, dtype=torch.<span class="hljs-built_in">float</span>, device=device)<br>        output = netD(real_cpu).view(-<span class="hljs-number">1</span>)<br>        errD_real = criterion(output, label)<br>        errD_real.backward()<br>        D_x = output.mean().item()<br><br>        noise = torch.randn(b_size, nz, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, device=device)<br>        fake = netG(noise)<br>        label.fill_(fake_label)<br>        output = netD(fake.detach()).view(-<span class="hljs-number">1</span>)<br>        errD_fake = criterion(output, label)<br>        errD_fake.backward()<br>        D_G_z1 = output.mean().item()<br>        errD = errD_real + errD_fake<br>        optimizerD.step()<br><br><br>        netG.zero_grad()<br>        label.fill_(real_label)<br>        output = netD(fake).view(-<span class="hljs-number">1</span>)<br>        errG = criterion(output, label)<br>        errG.backward()<br>        D_G_z2 = output.mean().item()<br>        optimizerG.step()<br><br>        <span class="hljs-keyword">if</span> i % <span class="hljs-number">50</span> == <span class="hljs-number">0</span>:<br>            print(<span class="hljs-string">&#x27;[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f&#x27;</span><br>                  % (epoch, num_epochs, i, <span class="hljs-built_in">len</span>(dataloader),<br>                     errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))<br><br>        G_losses.append(errG.item())<br>        D_losses.append(errD.item())<br><br>        <span class="hljs-keyword">if</span> (iters % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> ((epoch == num_epochs - <span class="hljs-number">1</span>) <span class="hljs-keyword">and</span> (i == <span class="hljs-built_in">len</span>(dataloader) - <span class="hljs-number">1</span>)):<br>            <span class="hljs-keyword">with</span> torch.no_grad():<br>                fake = netG(fixed_noise).detach().cpu()<br>            img_list.append(vutils.make_grid(fake, padding=<span class="hljs-number">2</span>, normalize=<span class="hljs-literal">True</span>))<br><br>        iters += <span class="hljs-number">1</span><br><br>torch.save(netD, <span class="hljs-string">&#x27;checkpoint/netD&#x27;</span> + <span class="hljs-built_in">str</span>(num_epochs) + <span class="hljs-string">&#x27;.pth&#x27;</span>)<br><br>plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>))<br>plt.title(<span class="hljs-string">&quot;Generator and Discriminator Loss During Training&quot;</span>)<br>plt.plot(G_losses, label=<span class="hljs-string">&quot;G&quot;</span>)<br>plt.plot(D_losses, label=<span class="hljs-string">&quot;D&quot;</span>)<br>plt.xlabel(<span class="hljs-string">&quot;iterations&quot;</span>)<br>plt.ylabel(<span class="hljs-string">&quot;Loss&quot;</span>)<br>plt.legend()<br>plt.savefig(<span class="hljs-string">&#x27;gan_losses.pdf&#x27;</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>)<br>plt.show()<br><br>fig = plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))<br>plt.axis(<span class="hljs-string">&quot;off&quot;</span>)<br>ims = [[plt.imshow(np.transpose(i, (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)), animated=<span class="hljs-literal">True</span>)] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> img_list]<br>ani = animation.ArtistAnimation(fig, ims, interval=<span class="hljs-number">1000</span>, repeat_delay=<span class="hljs-number">1000</span>, blit=<span class="hljs-literal">True</span>)<br>plt.savefig(<span class="hljs-string">&#x27;fake_img.pdf&#x27;</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>)<br>HTML(ani.to_jshtml())<br><br><br>real_batch = <span class="hljs-built_in">next</span>(<span class="hljs-built_in">iter</span>(dataloader))<br><br>plt.figure(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">15</span>))<br>plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>plt.axis(<span class="hljs-string">&quot;off&quot;</span>)<br>plt.title(<span class="hljs-string">&quot;Real Images&quot;</span>)<br>plt.imshow(np.transpose(vutils.make_grid(real_batch[<span class="hljs-number">0</span>].to(device)[:<span class="hljs-number">64</span>], padding=<span class="hljs-number">5</span>, normalize=<span class="hljs-literal">True</span>).cpu(), (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)))<br>plt.savefig(<span class="hljs-string">&#x27;real_img.pdf&#x27;</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>)<br><br><br>plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br>plt.axis(<span class="hljs-string">&quot;off&quot;</span>)<br>plt.title(<span class="hljs-string">&quot;Fake Images&quot;</span>)<br>plt.imshow(np.transpose(img_list[-<span class="hljs-number">1</span>], (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)))<br>plt.savefig(<span class="hljs-string">&#x27;cmp_img.pdf&#x27;</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>)<br>plt.show()<br><br></code></pre></td></tr></table></figure>
+<p>DCGAN.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Name: DCGAN.py</span><br><span class="hljs-comment"># Author: Reacubeth</span><br><span class="hljs-comment"># Time: 2021/5/28 18:42</span><br><span class="hljs-comment"># Mail: noverfitting@gmail.com</span><br><span class="hljs-comment"># Site: www.omegaxyz.com</span><br><span class="hljs-comment"># *_*coding:utf-8 *_*</span><br><br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-comment"># Number of channels in the training images. For color images this is 3</span><br>nc = <span class="hljs-number">3</span><br><br><span class="hljs-comment"># Size of z latent vector (i.e. size of generator input)</span><br>nz = <span class="hljs-number">100</span><br><br><span class="hljs-comment"># Size of feature maps in generator</span><br>ngf = <span class="hljs-number">128</span><br><br><span class="hljs-comment"># Size of feature maps in discriminator</span><br>ndf = <span class="hljs-number">128</span><br><br><span class="hljs-comment"># https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html</span><br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Generator</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, ngpu</span>):</span><br>        <span class="hljs-built_in">super</span>(Generator, self).__init__()<br>        self.ngpu = ngpu<br>        self.main = nn.Sequential(<br>            <span class="hljs-comment"># input is Z, going into a convolution</span><br>            nn.ConvTranspose2d(nz, ngf * <span class="hljs-number">16</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ngf * <span class="hljs-number">16</span>),<br>            nn.ReLU(<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ngf*16) x 4 x 4</span><br>            nn.ConvTranspose2d(ngf * <span class="hljs-number">16</span>, ngf * <span class="hljs-number">8</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ngf * <span class="hljs-number">8</span>),<br>            nn.ReLU(<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ngf*8) x 8 x 8</span><br>            nn.ConvTranspose2d(ngf * <span class="hljs-number">8</span>, ngf * <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ngf * <span class="hljs-number">4</span>),<br>            nn.ReLU(<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ngf*4) x 16 x 16</span><br>            nn.ConvTranspose2d(ngf * <span class="hljs-number">4</span>, ngf * <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ngf * <span class="hljs-number">2</span>),<br>            nn.ReLU(<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ngf*2) x 32 x 32</span><br>            nn.ConvTranspose2d(ngf * <span class="hljs-number">2</span>, ngf, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ngf),<br>            nn.ReLU(<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ngf) x 64 x 64</span><br>            nn.ConvTranspose2d(ngf, nc, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.Tanh()<br>            <span class="hljs-comment"># state size. (nc) x 128 x 128</span><br>        )<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        x = self.main(x)<br>        <span class="hljs-keyword">return</span> x<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Discriminator</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, ngpu</span>):</span><br>        <span class="hljs-built_in">super</span>(Discriminator, self).__init__()<br>        self.use_fully = <span class="hljs-literal">True</span><br>        self.ngpu = ngpu<br>        self.main = nn.Sequential(<br>            <span class="hljs-comment"># input is (nc) x 128 x 128</span><br>            nn.Conv2d(nc, ndf, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.LeakyReLU(<span class="hljs-number">0.2</span>, inplace=<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ndf) x 64 x 64</span><br><br>            nn.Conv2d(ndf, ndf * <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ndf * <span class="hljs-number">2</span>),<br>            nn.LeakyReLU(<span class="hljs-number">0.2</span>, inplace=<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ndf*2) x 32 x 32</span><br><br>            nn.Conv2d(ndf * <span class="hljs-number">2</span>, ndf * <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ndf * <span class="hljs-number">4</span>),<br>            nn.LeakyReLU(<span class="hljs-number">0.2</span>, inplace=<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ndf*4) x 16 x 16</span><br><br>            nn.Conv2d(ndf * <span class="hljs-number">4</span>, ndf * <span class="hljs-number">8</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ndf * <span class="hljs-number">8</span>),<br>            nn.LeakyReLU(<span class="hljs-number">0.2</span>, inplace=<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ndf*8) x 8 x 8</span><br><br>            nn.Conv2d(ndf * <span class="hljs-number">8</span>, ndf * <span class="hljs-number">16</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>),<br>            nn.BatchNorm2d(ndf * <span class="hljs-number">16</span>),<br>            nn.LeakyReLU(<span class="hljs-number">0.2</span>, inplace=<span class="hljs-literal">True</span>),<br>            <span class="hljs-comment"># state size. (ndf*16) x 4 x 4</span><br><br>            <span class="hljs-comment"># use_fully</span><br>            <span class="hljs-comment"># nn.Conv2d(ndf * 16, 1, 4, 1, 0, bias=False),</span><br>            <span class="hljs-comment"># nn.Sigmoid()</span><br>        )<br><br>        <span class="hljs-keyword">if</span> self.use_fully:<br>            print(<span class="hljs-string">&#x27;use_fully&#x27;</span>)<br>            self.out = nn.Sequential(<br>                nn.Linear(ndf * <span class="hljs-number">16</span> * <span class="hljs-number">4</span> * <span class="hljs-number">4</span>, <span class="hljs-number">1</span>),<br>                nn.Sigmoid()<br>            )<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        x = self.main(x)<br>        <span class="hljs-keyword">if</span> self.use_fully:<br>            x = x.view(x.size(<span class="hljs-number">0</span>), -<span class="hljs-number">1</span>)<br>            x = self.out(x)<br>        <span class="hljs-keyword">return</span> x<br><br><br></code></pre></td></tr></table></figure>
+<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><p>The generated images compared to the original images are shown as follows. The left grid contains the real ones, the right images are fake.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/cmp_dcgan202107092251.jpg" srcset="/img/loading.gif" alt=""></p>
+<p>It can be observed that the fake images are close to the real images, and even some of the generated images are difficult for people to distinguish from real ones. Of course, some images are slightly blurred with green backgrounds.</p>
+<p>In order to see the evolution of the generated images, I also visualize these fake images at different epochs. It is interesting to see that some latent features have been extracted at the early stage. At the 50th iteration, the whole birds’ outlines have begun to appear.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/epoch_gan202107092236.jpg" srcset="/img/loading.gif" alt=""></p>
+<p>The following figure shows the change of loss during the training process. We can see that the loss of the generator is a little higher than that of the discriminator. One of the possible reasons is the existence of the fully connected layer. We can also see the losses are not steady for both of them, which may lead to the mode collapse.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/gan_loss202107092212.jpg" srcset="/img/loading.gif" alt=""></p>
+<h2 id="Feature-Visualization"><a href="#Feature-Visualization" class="headerlink" title="Feature Visualization"></a>Feature Visualization</h2><p>In this part, I visualize the attention of different intermediate layers of discriminator in DCGAN with the help of Grad-CAM[2]. Grad-CAM uses the gradient information of the last convolution layer flowing into CNN to assign important values to each neuron. Specifically, the gradient of class <script type="math/tex">c</script> is calculated by using <script type="math/tex">y^c</script>(Logits before softmax), and the activation value of the feature graph is defined as <script type="math/tex">a^k</script>. These backflow gradients are applied with the global pooling strategy on the width and height dimensions (indexed by <script type="math/tex">i</script> and <script type="math/tex">j</script>, respectively) to obtain neuron importance Iights <script type="math/tex">\alpha^c_k</script>. Equation 1 and 2 describes the process.</p>
+<script type="math/tex; mode=display">\alpha_{k}^{c}=\frac{1}{Z} \sum_{i \in w} \sum_{j \in h} \frac{\partial y^{c}}{\partial A_{i j}^{k}}</script><script type="math/tex; mode=display">L_{G r a d-C A M}^{c}=\operatorname{ReLU}\left(\alpha_{k}^{c} * A^{k}\right)</script><p>The heatmap of the last convolutional layer of discriminator in DCGAN in the case of dataset CUB200-2011 is shown as follows. The second and third columns are heatmaps of Grad-CAM and Grad-CAM++[3] respectively. The last two columns are the results superimposed on the original images. I choose to visualize the attention that makes the discriminator judge fake. As can be seen from the results, the place with higher heat value is not birds, but the environment in most cases, which valids that the discriminator should not perform so ill in GAN model.</p>
+<p><img src="https://gitee.com/omegaxyz/img/raw/master/upload/heatmap_gan202107092244.jpg" srcset="/img/loading.gif" alt=""></p>
+<p>[1] Radford, Alec, Luke Metz, and Soumith Chintala. “Unsupervised representation learning with deep convolutional generative adversarial networks.” arXiv preprint arXiv:1511.06434 (2015).</p>
+<p>[2] Selvaraju, Ramprasaath R., et al. “Grad-cam: Visual explanations from deep networks via gradient-based localization.” Proceedings of the IEEE international conference on computer vision. 2017.</p>
+<p>[3] Chattopadhay, Aditya, et al. “Grad-cam++: Generalized gradient-based visual explanations for deep convolutional networks.” 2018 IEEE Winter Conference on Applications of Computer Vision (WACV). IEEE, 2018.</p>
+<p>OmegaXYZ.com<br>All rights reserved.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/technology/">technology</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">OmegaXYZ is licensed under a <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 Generic License</a>.</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/12/Critique-DNNGuard-An-Elastic-Heterogeneous-DNN-Accelerator-Architecture-against-Adversarial-Attacks/">
+                        <span class="hidden-mobile">Critique: DNNGuard: An Elastic Heterogeneous DNN Accelerator Architecture against Adversarial Attacks</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https://en.omegaxyz.com/2021/07/09/Image-Generation-with-Generative-Adversarial-Networks-GAN/';
+        this.page.identifier = '/2021/07/09/Image-Generation-with-Generative-Adversarial-Networks-GAN/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'fluid' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i> 2017-2021  <a href="https://www.omegaxyz.com" target="_blank" rel="nofollow noopener"><span>OmegaXYZ</span></a>
+
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
