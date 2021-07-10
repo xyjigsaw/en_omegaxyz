@@ -10,7 +10,7 @@ index_img: https://gitee.com/omegaxyz/img/raw/master/upload/dcgan202107092251.jp
 
 ## Introduction
 
-In this section, I implemented some variants of DCGAN[1], which is one of the generative adversarial networks. The DCGAN model has replaced the fully connected layer with the global pooling layer. It is universally acknowledged that the purpose of GAN is to achieve Nash equilibrium between the discriminator and the generator. That is to say, neither of these two models should perform very well. When I applied the DCGAN to dataset CUB200-2011, I find that the loss of the generator converges to zero rapidly while the loss of the discriminator stays high, which shows that the discriminator can not distinguish the fake images from all images in this case. To improve its performance, I add a fully connected layer at the end of the convolution layer in the discriminator. The outcome is better than the original DCGAN. 
+In this article, I implemented some variants of DCGAN[1], which is one of the generative adversarial networks. The DCGAN model has replaced the fully connected layer with the global pooling layer. It is universally acknowledged that the purpose of GAN is to achieve Nash equilibrium between the discriminator and the generator. That is to say, neither of these two models should perform very well. When I applied the DCGAN to dataset CUB200-2011, I find that the loss of the generator converges to zero rapidly while the loss of the discriminator stays high, which shows that the discriminator can not distinguish the fake images from all images in this case. To improve its performance, I add a fully connected layer at the end of the convolution layer in the discriminator. The outcome is better than the original DCGAN. 
 
 ## Codes
 
