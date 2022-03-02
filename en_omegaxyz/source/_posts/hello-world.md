@@ -37,3 +37,7 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+
+
+### Notes
+20220302: this site is deployed by GitHub Actions.
