@@ -3,7 +3,7 @@ title: ‘DeepScience: Forecasting Trends of the Science of Science’
 date: 2022-03-19 15:00:40
 tags: [machine learning]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/IMG_1066_2022-03-19-15-17-40.png
+index_img: https://gitee.com/omegaxyz/img/raw/master/upload/IMG_1066_2022-03-19-15-36-13.png
 —
 
 ## Introduction
@@ -32,7 +32,7 @@ You can download these two datasets from [Google Drive](https://drive.google.com
 
 ### Motif Trends
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/motifs.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/motifs.png)
 
 The cross topic motifs of the two fields are on the rise, and the number of cross topics of deep learning is far greater than that of COVID-19. In the late stage of the epidemic, the cross trends slowed down and reached convergence. From the end of 2018 to 2019, there was an explosive growth in deep learning domains. Although deep learning has slowed down in recent months, compared with the COVID-19, it still has great development prospects.
 
@@ -41,17 +41,17 @@ The cross topic motifs of the two fields are on the rise, and the number of cros
 
 We also compute several network characteristics of field graphs. More details can be found in our paper.
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/metrics.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/metrics.png)
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/degree_assortativity.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/degree_assortativity.png)
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/clustering_coefficient.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/clustering_coefficient.png)
 
 ### Hot toptics
 
 We use [GCN-GAN](https://github.com/yanghaoxie/GCN-GAN-for-Weighted-Dynamic-Networks) and [EvolveGCN](https://github.com/yanghaoxie/GCN-GAN-for-Weighted-Dynamic-Networks) to forecast trends of cross subjects in the future.
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/gcn-gan.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/gcn-gan.png)
 
 In terms of COVID-19, we finds that:
 
@@ -66,7 +66,7 @@ In terms of COVID-19, we finds that:
 
 Transfer entropy is a non-parametric statistic measuring the amount of directed (time-asymmetric) transfer of information between two random processes. We use transfer entropy to mine the underlying influence between different fields in the perspective of PageRank. More details can be found in our paper.
 
-![](https://github.com/xyjigsaw/DeepScience/blob/master/img/transfer_entropy_cs.png)
+![](https://raw.githubusercontent.com/xyjigsaw/DeepScience/master/img/transfer_entropy_cs.png)
 
 
 If you use this repository, please cite it as below.
