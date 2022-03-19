@@ -1,5 +1,5 @@
 ---
-title: ‘DeepScience: Forecasting Trends of the Science of Science’
+title: 'DeepScience: Forecasting Trends of the Science of Science'
 date: 2022-03-19 15:00:40
 tags: [machine learning]
 categories: technology
