@@ -8,7 +8,7 @@ index_img: https://gitee.com/omegaxyz/img/raw/master/upload/IMG_1066_2022-03-19-
 
 ## Introduction
 
-In this repo, we choose the domain of **COVID-19** and **deep learning** to predict the trends of the science of science. 
+In this [repo](https://github.com/xyjigsaw/DeepScience), we choose the domain of **COVID-19** and **deep learning** to predict the trends of the science of science. 
 
 We use the information of papers and fields from [Acemap](https://www.acemap.info/). It is worth noting that we have also collected papers from the whole academia consisting of 19 subjects (Mathematics, History, Psychology, Economics, Sociology, Art, Geography, Business, Physics, Political science, Philosophy, Biology, Computer science, Materials science, Environmental science, Medicine, Chemistry, Engineering, and Geology) and 292 sub-fields (sub-subjects). 
 
@@ -22,7 +22,7 @@ We generate the dynamic field graph day by day ranging from January 1, 2020, to 
 You can download these two datasets from [Google Drive](https://drive.google.com/drive/folders/11GArAGnx655sOrDBPm5BwKH-eDsUJvQX?usp=sharing).
 
 |  | COVID-19 | Deep Learning |
-| :-—| :-— | :-— |
+| :----| :---- | :---- |
 | Fields | 18,369 | 40,930 |
 | Relations | 198,137 | 669,426 |
 | Relations (weight > 1) | 54,106 | 186,255 |
