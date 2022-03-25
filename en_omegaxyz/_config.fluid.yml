@@ -205,7 +205,7 @@ custom_html: ''
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
-  enable: false
+  enable: true
 
   # 百度统计的 Key，值需要获取下方链接中 `hm.js?` 后边的字符串
   # Baidu analytics, get the string behind `hm.js?`
@@ -215,12 +215,12 @@ web_analytics:  # 网页访问统计
   # Google 统计的 Tracking ID
   # Google analytics, set Tracking ID
   # See: https://developers.google.com/analytics/devguides/collection/analyticsjs
-  google:
+  google: G-KKPRBT66HD
 
   # Google gtag.js 的媒体资源 ID
   # Google gtag.js GA_MEASUREMENT_ID
   # See: https://developers.google.com/analytics/devguides/collection/gtagjs/
-  gtag:
+  gtag: G-KKPRBT66HD
 
   # 腾讯统计的 H5 App ID，开启高级功能才有cid
   # Tencent analytics, set APP ID
