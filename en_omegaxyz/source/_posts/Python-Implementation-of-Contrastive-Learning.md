@@ -4,7 +4,7 @@ date: 2022-01-13 16:40:25
 tags: [Python, machine learning]
 categories: technology
 math: true
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/contrastive_learning202201131713.png
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/contrastive_learning202201131713.png
 ---
 
 ## Introduction

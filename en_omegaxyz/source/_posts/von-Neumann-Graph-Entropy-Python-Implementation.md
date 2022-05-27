@@ -4,7 +4,7 @@ date: 2021-01-25 23:50:04
 tags: [Python, machine learning]
 categories: technology
 math: true
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/social-network202101260047.jpg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/social-network202101260047.jpg
 ---
 
 ## Introduction

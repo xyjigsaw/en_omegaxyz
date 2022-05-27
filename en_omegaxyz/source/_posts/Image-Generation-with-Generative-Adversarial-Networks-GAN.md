@@ -4,7 +4,7 @@ date: 2021-07-09 21:54:51
 tags: [Python, machine learning]
 categories: technology
 math: true
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/dcgan202107092251.jpeg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/dcgan202107092251.jpeg
 ---
 
 
@@ -334,17 +334,17 @@ class Discriminator(nn.Module):
 
 The generated images compared to the original images are shown as follows. The left grid contains the real ones, the right images are fake.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/cmp_dcgan202107092251.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cmp_dcgan202107092251.jpg)
 
 It can be observed that the fake images are close to the real images, and even some of the generated images are difficult for people to distinguish from real ones. Of course, some images are slightly blurred with green backgrounds.
 
 In order to see the evolution of the generated images, I also visualize these fake images at different epochs. It is interesting to see that some latent features have been extracted at the early stage. At the 50th iteration, the whole birds' outlines have begun to appear.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/epoch_gan202107092236.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/epoch_gan202107092236.jpg)
 
 The following figure shows the change of loss during the training process. We can see that the loss of the generator is a little higher than that of the discriminator. One of the possible reasons is the existence of the fully connected layer. We can also see the losses are not steady for both of them, which may lead to the mode collapse.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/gan_loss202107092212.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/gan_loss202107092212.jpg)
 
 
 ## Feature Visualization
@@ -359,7 +359,7 @@ $$L_{G r a d-C A M}^{c}=\operatorname{ReLU}\left(\alpha_{k}^{c} * A^{k}\right)$$
 The heatmap of the last convolutional layer of discriminator in DCGAN in the case of dataset CUB200-2011 is shown as follows. The second and third columns are heatmaps of Grad-CAM and Grad-CAM++[3] respectively. The last two columns are the results superimposed on the original images. I choose to visualize the attention that makes the discriminator judge fake. As can be seen from the results, the place with higher heat value is not birds, but the environment in most cases, which valids that the discriminator should not perform so ill in GAN model.
 
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/heatmap_gan202107092244.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/heatmap_gan202107092244.jpg)
 
 
 

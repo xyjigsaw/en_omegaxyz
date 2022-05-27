@@ -3,7 +3,7 @@ title: 'Critique: DNNGuard: An Elastic Heterogeneous DNN Accelerator Architectur
 date: 2021-04-12 21:07:59
 tags: [computer architecture,paper]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/DNNGuard202104122126.jpeg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/DNNGuard202104122126.jpeg
 ---
 
 
@@ -21,7 +21,7 @@ This paper proposes an elastic heterogeneous DNN accelerator architecture called
 
 As I have mentioned above, in general, this paper focuses on the challenges of DNN security where injected malicious data like adversarial samples will cause disastrous consequences. As usual, the clarity, novelty, and technical correctness of the paper will be discussed in detail fairly.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/DNNGuard202104122126.jpeg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/DNNGuard202104122126.jpeg)
 
 ## Clarity & Organization
 

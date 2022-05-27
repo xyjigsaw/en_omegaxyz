@@ -3,7 +3,7 @@ title: 'Critique: Accelerating Attention Mechanisms in Neural Networks with Appr
 date: 2021-01-20 22:38:40
 tags: [computer architecture,paper]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/aaa_nn1202101202239.jpg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/aaa_nn1202101202239.jpg
 ---
 
 > **Paper**: Ham, Tae Jun, et al. "A^ 3: Accelerating Attention Mechanisms in Neural Networks with Approximation." 2020 IEEE International Symposium on High Performance Computer Architecture (HPCA). IEEE, 2020.
@@ -32,7 +32,7 @@ Particularly, ideas on how to devise approximate attention have two critical ste
 
 For Approx-A3, the authors design a new set of hardware accelerator modules for candidate selection and post-scoring approximation. It uses the naïve idea that addition is better than multiplication. For example, given a matrix of size n by d, Approx-A3 sorts each column of the matrix stored in SRAM firstly. Then two pointers of size 1 by d aim to fetch the max and min elements in the sorted column for m times to update the estimated attention in place of the element-wise multiplication for query vector and sorted matrix. Thus, the algorithm only performs 2 by m multiplications, which is much smaller than n by d. In a word, the algorithm updates two estimated attention scores per iteration: largest and smallest component multiplication results. Finally, rows with positive estimated attention scores after m iterations become candidates for approximate attention.
 
-![Chip](https://gitee.com/omegaxyz/img/raw/master/upload/aaa_nn2202101202246.jpg)
+![Chip](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/aaa_nn2202101202246.jpg)
 
 I have noticed that there is a sorting operation in the process when approximation and I thought it would affect the performance of A3 at the beginning. The sorting operation (O(logn)) will take up additional computing resources and authors should carefully adopt sorting. Fortunately, authors have considered the performance overhead of sort. In section IV, the paper shows sorting may not be on the critical path, and the same key matrix is re-used for multiple queries for workloads with the self-attention mechanism which can be amortized over multiple queries. In addition, for memory network models, information can be preprocessed before the query arrives. Sorting does not affect query time. In this part, I hope that the paper could have further argumentation and analysis in detail. We can conclude that the design of A3 obeys the principle of locality which is the reuse of data and instructions.
 

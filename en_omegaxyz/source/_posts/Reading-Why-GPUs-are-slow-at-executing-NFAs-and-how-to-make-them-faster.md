@@ -3,7 +3,7 @@ title: 'Critique: Why GPUs are slow at executing NFAs and how to make them faste
 date: 2021-01-20 12:42:13
 tags: [computer architecture,paper]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/GPU_NFA202101201211.jpg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/GPU_NFA202101201211.jpg
 ---
 
 > **Paper**: Liu, Hongyuan, Sreepathi Pai, and Adwait Jog. “Why GPUs are slow at executing NFAs and how to make them faster.” Proceedings of the Twenty-Fifth International Conference on Architectural Support for Programming Languages and Operating Systems. 2020.
@@ -16,7 +16,7 @@ This paper introduces a new dynamic scheme that effectively balances compute uti
 
 In general, this paper focuses on solving a challenge domain-specific problem in the area of GPU. I hold a positive view of the sophisticated scheme and well-designed experiments in this paper for the reason that the methodology and experiments of the article utilize the characteristics of NFA and GPU, and the latter gives sufficient evidence to support these methods. Moreover, to the best of my knowledge, in the context of NFA processing, no prior work has considered both data movement and utilization problems in conjunction. However, it should be noted that there are some trivial flaws in the choice of the comparison method and the organization of the paper is not satisfactory.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/GPU_NFA202101201211.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/GPU_NFA202101201211.jpg)
 
 In the following parts, I will analyze the whole paper in detail in terms of writing skills, method design, and experiment, etc.
 

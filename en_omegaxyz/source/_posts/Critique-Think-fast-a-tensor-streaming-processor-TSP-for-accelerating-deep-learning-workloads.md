@@ -3,7 +3,7 @@ title: 'Critique: Think fast: a tensor streaming processor (TSP) for acceleratin
 date: 2021-02-03 11:40:02
 tags: [computer architecture,paper]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/tsp202102031138.jpg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/tsp202102031138.jpg
 ---
 
 
@@ -17,7 +17,7 @@ This work introduces a novel processor architecture called Tensor Streaming Proc
 
 The work is conducted by a famous and emerging artificial intelligence company called Groq, Inc . Their proposed TSP has gained a significant influence and profit in the market as well. Hence, For more fairness and rationality, the way of this critique is slightly distinguishable from the previous. In the following parts, I will analyze the paper in detail at the aspects of clarity, novelty, technical correctness with reproducibility, etc. independently rather than ambiguous and general strengths or weaknesses.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/tsp-one-chip202102031150.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/tsp-one-chip202102031150.jpg)
 
 ## Clarity
 

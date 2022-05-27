@@ -3,7 +3,7 @@ title: 'DeepScience: Forecasting Trends of the Science of Science'
 date: 2022-03-19 15:00:40
 tags: [machine learning]
 categories: technology
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/IMG_1066_2022-03-19-15-36-13.png
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/IMG_1066_2022-03-19-15-36-13.png
 ---
 
 ## Introduction

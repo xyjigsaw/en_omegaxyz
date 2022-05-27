@@ -3,14 +3,14 @@ title: 'Defend the truth: seeing is not believing anymore'
 date: 2021-01-20 00:02:24
 categories: ideas
 tags: ideas
-index_img: https://gitee.com/omegaxyz/img/raw/master/upload/deep-fake202101201024.jpg
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/deep-fake202101201024.jpg
 ---
 
 ## DeepFake
 
 Imagine if someone replaces the character in a certain video with your face image just for fun, what would you think? This is what DeepFake is doing. Its function is to combine and superimpose existing videos onto source videos using generative adversarial network (GAN) [1]. The fusion of the existing and source videos outputs a fake video that shows a person acting at an event that never happened in reality.
 
-![](https://gitee.com/omegaxyz/img/raw/master/upload/deep-fake202101201024.jpg)
+![](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/deep-fake202101201024.jpg)
 
 As we all know that every coin has two sides. On the good side, the technology in DeepFake provides more convenience for mankind to a certain degree. In the film industry, engineers are able to generate more exciting and incredible scenes while actors or actresses don’t really need to risk their lives. Moreover, DeepFake brings color to family parties or enhances friendship between companions if used properly. 
 
