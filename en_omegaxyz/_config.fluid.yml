@@ -297,7 +297,7 @@ navbar:
     - { key: "Archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "Category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "Tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
-    - { key: "About", link: "/about/", icon: "iconfont icon-user-fill" }
+    - { key: "About", link: "https://cv.omegaxyz.com", icon: "iconfont icon-user-fill" }
     - { key: "Github", link: "https://github.com/xyjigsaw", icon: "iconfont icon-github-fill" }
     - { key: "中文", link: "https://www.omegaxyz.com", icon: "iconfont icon-bookmark-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }

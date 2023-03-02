@@ -27,3 +27,9 @@ title: Python
 date: 2021-01-25 23:51:01
 type: tags
 ---
+
+---
+title: knowledge graph
+date: 2022-11-25 23:51:01
+type: tags
+---

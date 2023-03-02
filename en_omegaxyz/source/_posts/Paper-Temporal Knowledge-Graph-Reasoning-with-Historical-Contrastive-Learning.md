@@ -4,7 +4,7 @@ date: 2022-12-03 11:28:11
 tags: [Python, machine learning, knowledge graph]
 categories: technology
 math: true
-index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_tkg_2023_03_02_10.png
+index_img: https://raw.githubusercontent.com/xyjigsaw/image/master/upload/knowledge_graph_2023_03_02_11.png
 ---
 
 
@@ -22,7 +22,7 @@ TKG has provided new perspectives and insights for many downstream applications,
 
 In order to model the structure and time characteristics of TKG for future event prediction, some mainstream models, such as RE-NET, can easily predict repeated or periodic events using autoregressive methods. However, in the TKG dataset ICEWS (Integrated Crisis Early Warning System), new events account for about 40%.
 
-It is very challenging to predict these new events because they have fewer traces of interaction on the historical timeline. For example, the right part of the following figure shows the query (the United States, Negotiate,?, $$t+1$$) and its corresponding new events (the United States, Negotiate, Russia, $$t+1$$). Most of the existing methods usually get wrong results in this type of query because they pay too much attention to frequent repeated events.
+It is very challenging to predict these new events because they have fewer traces of interaction on the historical timeline. For example, the right part of the following figure shows the query (the United States, Negotiate, ?, $$t+1$$) and its corresponding new events (the United States, Negotiate, Russia, $$t+1$$). Most of the existing methods usually get wrong results in this type of query because they pay too much attention to frequent repeated events.
 
 ![Problems in Existing Models](https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_problems_2023_03_02_10.png)
 
@@ -42,7 +42,7 @@ $$\mathbf{H}_{his}^{s,p}=\underbrace{tanh(\mathbf{W}_{his}(\mathbf{s}\oplus \mat
 
 $$\mathbf{H}_{nhis}^{s,p}=tanh(\mathbf{W}_{nhis}(\mathbf{s}\oplus \mathbf{p}) + \mathbf{b}_{nhis})\mathbf{E}^{T} - \mathbf{Z}_{t}^{s,p}$$
 
-In addition, all queries can be divided into two categories according to their real object entities: tail entities are historical entities or non-historical entities. Therefore, CENET naturally uses supervised contrastive learning loss to train the representation of two types of queries (i.e., $$v_q $$in formula 3), further helping to train the classifier whose output is Boolean, so as to identify which entities should receive more attention. In the process of reasoning, CENET combines the distribution of historical and non-historical dependencies, and further uses the mask-based strategy to consider highly relevant entities according to the classification results.
+In addition, all queries can be divided into two categories according to their real object entities: tail entities are historical entities or non-historical entities. Therefore, CENET naturally uses supervised contrastive learning loss to train the representation of two types of queries (i.e., $$v_q$$ in formula 3), further helping to train the classifier whose output is Boolean, so as to identify which entities should receive more attention. In the process of reasoning, CENET combines the distribution of historical and non-historical dependencies, and further uses the mask-based strategy to consider highly relevant entities according to the classification results.
 
 $$\mathcal{L}^{sup} = \sum_{q \in M}\frac{-1}{|Q(q)|}\sum_{k \in Q(q)}\log \frac{exp(\mathbf{v}_q \cdot \mathbf{v}_k / \tau)}{\sum\limits_{a \in M \backslash \{q\}}(\mathbf{v}_q \cdot \mathbf{v}_a / \tau)}$$
 
