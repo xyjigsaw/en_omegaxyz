@@ -41,3 +41,22 @@ More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
 
 ### Notes
 20220302: this site is deployed by GitHub Actions.
+
+## How to deploy
+
+```bash
+git clone https://github.com/xyjigsaw/en_omegaxyz
+git checkout hexo
+```
+
+Then add or modify corresponding files
+
+```bash
+git add .
+git commit -m ''
+git push
+```
+
+The github action will automatically generate the page.
+
+
