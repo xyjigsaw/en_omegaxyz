@@ -362,9 +362,9 @@ footer:
   # 页脚第一行文字的 HTML，建议保留 Fluid 的链接，用于向更多人推广本主题
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
   content: '
-    <i class="iconfont icon-copyright"></i> 2017-2021 
+    <i class="iconfont icon-copyright"></i> 2017-2023 
     <a href="https://www.omegaxyz.com" target="_blank" rel="nofollow noopener"><span>OmegaXYZ</span></a>
-    
+    <span> All rights reserved.</span>
   '
 
   # 展示网站的 PV、UV 统计数
