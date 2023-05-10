@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/omegaxyz-logo-100.png">
+  <link rel="icon" type="image/png" href="/img/omegaxyz-logo-100.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="artificial intelligence">
+  <meta name="author" content="Reacubeth">
+  <meta name="keywords" content="artificial intelligence; finance">
+  <title>Paper: Temporal Knowledge Graph Reasoning with Historical Contrastive Learning - OmegaXYZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"en.omegaxyz.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":65,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-KKPRBT66HD","gtag":"G-KKPRBT66HD","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OmegaXYZ</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archive
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Category
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tag
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://cv.omegaxyz.com">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/xyjigsaw">
+                <i class="iconfont icon-github-fill"></i>
+                Github
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://www.omegaxyz.com">
+                <i class="iconfont icon-bookmark-fill"></i>
+                中文
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/blue.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Paper: Temporal Knowledge Graph Reasoning with Historical Contrastive Learning">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Reacubeth
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-12-03 11:28" pubdate>
+        Saturday, December 3rd 2022, 11:28 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k words
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       minutes
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Paper: Temporal Knowledge Graph Reasoning with Historical Contrastive Learning</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Temporal-Knowledge-Graph"><a href="#Temporal-Knowledge-Graph" class="headerlink" title="Temporal Knowledge Graph"></a>Temporal Knowledge Graph</h2><p>Knowledge Graphs (KGs), as a collection of human knowledge, have shown great prospects in natural language processing, recommendation systems and information retrieval. The traditional KG is usually a static knowledge base. It uses a graph structure data topology and integrates facts (also known as events) in the form of triples <script type="math/tex">(s, p, o)</script>, where <script type="math/tex">s</script> and <script type="math/tex">o</script> represent subject (header entity) and object (tail entity) entities respectively, and <script type="math/tex">p</script> is used as a relationship type to express predicates. In the real world, due to the continuous development of knowledge, the construction and application of temporal knowledge atlas (TKG) has become a hot topic in the field, in which triples <script type="math/tex">(s, p, o)</script> are expanded to quintuples, and time stamps <script type="math/tex">t</script>, namely <script type="math/tex">(s, p, o, t)</script>, are added. The following figure shows a TKG composed of a series of international political events.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_tkg_2023_03_02_10.png" srcset="/img/loading.gif" alt="A Temporal Knowledge Subgraph"></p>
+<h2 id="Temporal-Knowledge-Graph-Reasoning"><a href="#Temporal-Knowledge-Graph-Reasoning" class="headerlink" title="Temporal Knowledge Graph Reasoning"></a>Temporal Knowledge Graph Reasoning</h2><p>TKG has provided new perspectives and insights for many downstream applications, such as decision-making, stock forecasting and dialogue systems, thus arousing people’s strong interest in TKG reasoning. In this work, we focus on predicting future events on TKG.</p>
+<p>In order to model the structure and time characteristics of TKG for future event prediction, some mainstream models, such as RE-NET, can easily predict repeated or periodic events using autoregressive methods. However, in the TKG dataset ICEWS (Integrated Crisis Early Warning System), new events account for about 40%.</p>
+<p>It is very challenging to predict these new events because they have fewer traces of interaction on the historical timeline. For example, the right part of the following figure shows the query (the United States, Negotiate, ?, <script type="math/tex">t+1</script>) and its corresponding new events (the United States, Negotiate, Russia, <script type="math/tex">t+1</script>). Most of the existing methods usually get wrong results in this type of query because they pay too much attention to frequent repeated events.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_problems_2023_03_02_10.png" srcset="/img/loading.gif" alt="Problems in Existing Models"></p>
+<p>On the other hand, in the reasoning process, the existing methods rank the probability scores of all candidate entities in the whole graph without any bias. We believe that this kind of bias is very necessary when dealing with missing entities of different events, which is also true in real society. For example, for repetitive or periodic events, we should give priority to some entities that occur frequently, while for new events, we need to pay more attention to entities with less historical interaction.</p>
+<h2 id="Contrastive-Event-Network-CENET"><a href="#Contrastive-Event-Network-CENET" class="headerlink" title="Contrastive Event Network (CENET)"></a>Contrastive Event Network (CENET)</h2><p>In this work, we will go beyond the limits of historical information and explore potential temporal patterns from the whole knowledge. In order to clarify our design more clearly, we call the past events associated with the entities in the current query historical events of the query, and other events non-historical events. We intuitively believe that the events in TKG are not only related to their historical events, but also indirectly related to the potential factors that have not been observed. The historical events we can see are only the tip of the iceberg. We propose a new TKG reasoning model called CENET (Contrastive Event Network). The following figure shows the framework of the model.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_architecture_2023_03_02_10.png" srcset="/img/loading.gif" alt="The overall architecture of CENET. The left part learns the distribution of entities from both historical and non-historical dependency. The right part illustrates the two stages of historical contrastive learning, which aims to identify highly correlated entities, and the output is a boolean mask vector. The middle part is the mask-based inference process that combines the distribution learned from the two kinds of dependency and the mask vector to generate the final results."></p>
+<p>Given the query <script type="math/tex">(s, p, ?, t)</script> whose real tail entity is <script type="math/tex">o</script>, CENET considers its historical and non-historical events, and identifies important entities through contrastive learning. Specifically, the model first uses a scoring strategy based on copy-mechanism to model the correlation between historical events and non-historical events.</p>
+<script type="math/tex; mode=display">\mathbf{H}_{his}^{s,p}=\underbrace{tanh(\mathbf{W}_{his}(\mathbf{s}\oplus \mathbf{p}) + \mathbf{b}_{his})\mathbf{E}^{T}}_{\text{similarity score between $q$ and $\mathcal{E}$}} + \mathbf{Z}_{t}^{s,p}</script><script type="math/tex; mode=display">\mathbf{H}_{nhis}^{s,p}=tanh(\mathbf{W}_{nhis}(\mathbf{s}\oplus \mathbf{p}) + \mathbf{b}_{nhis})\mathbf{E}^{T} - \mathbf{Z}_{t}^{s,p}</script><p>In addition, all queries can be divided into two categories according to their real object entities: tail entities are historical entities or non-historical entities. Therefore, CENET naturally uses supervised contrastive learning loss to train the representation of two types of queries (i.e., <script type="math/tex">v_q</script> in formula 3), further helping to train the classifier whose output is Boolean, so as to identify which entities should receive more attention. In the process of reasoning, CENET combines the distribution of historical and non-historical dependencies, and further uses the mask-based strategy to consider highly relevant entities according to the classification results.</p>
+<script type="math/tex; mode=display">\mathcal{L}^{sup} = \sum_{q \in M}\frac{-1}{|Q(q)|}\sum_{k \in Q(q)}\log \frac{exp(\mathbf{v}_q \cdot \mathbf{v}_k / \tau)}{\sum\limits_{a \in M \backslash \{q\}}(\mathbf{v}_q \cdot \mathbf{v}_a / \tau)}</script><p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_contrastive_2023_03_02_10.png" srcset="/img/loading.gif" alt="Historical Comparative Learning: CENET uses contrastive loss in the first stage, and uses cross entropy loss to train binary classifier in the second stage."></p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h3><p>We selected five benchmark data sets, including three event-based TKGs and two public KG. These two types of data sets are constructed in different ways. The first three TKGs based on international political events are composed of ICEWS18, ICEWS14 and GDELT, and the events are discrete. Events in the last two public KG (WIKI and YAGO) may exist continuously for a long time.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_datasets_2023_03_02_10.png" srcset="/img/loading.gif" alt="Datasets"></p>
+<h3 id="Comparative-Experiment"><a href="#Comparative-Experiment" class="headerlink" title="Comparative Experiment"></a>Comparative Experiment</h3><p>We selected 15 of the industry’s latest TKG reasoning models as the baseline, and adopted Mean Rational Ranks (MRR) and Hits@1/3/10 (the proportion of correct judgments ranked within top 1/3/10) as the evaluation index. The following table shows the results. The results show that CENET is significantly superior to all existing methods in most metrics. Compared with the most advanced baseline before, Hits@1 At least 8.3% relative improvement was achieved.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_cmp_2023_03_02_10.png" srcset="/img/loading.gif" alt="Results of event-based TKG"></p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_cmp2_2023_03_02_10.png" srcset="/img/loading.gif" alt="Results of public KG"></p>
+<h3 id="Ablation-Experiment"><a href="#Ablation-Experiment" class="headerlink" title="Ablation Experiment"></a>Ablation Experiment</h3><p>We analyzed the performance of each key component in the model, and the results of the ablation experiment are shown in the following table. It can be seen that taking historical and non-historical dependencies into account at the same time can achieve better results than only taking historical dependencies into account. The historical contrastive learning strategy and mask-based inference can achieve superior performance.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_ablation_2023_03_02_10.png" srcset="/img/loading.gif" alt="Ablation Results"></p>
+<h3 id="Case-Study"><a href="#Case-Study" class="headerlink" title="Case Study"></a>Case Study</h3><p>The case analysis shows the case of the model in predicting repetitive events and new events.<br><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/cenet_case_study_2023_03_02_10.png" srcset="/img/loading.gif" alt="Case Analysis"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this paper, we propose a new temporal knowledge graph model for event prediction: contrastive event network (CENET). The key idea of CENET is to learn the convincing distribution of the entire entity set and identify important entities from historical and non-historical dependencies in the contrastive learning framework. The experimental results show that CENET is significantly superior to all existing methods in most metrics, especially in Hits@1. Future work includes exploring the contrastive learning ability in the knowledge graph, such as finding more reasonable contrastive pairs.</p>
+<p>The work has been accepted by AAAI 2023. The paper and code link are as follows:<br><strong>Paper Link:</strong><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.10904">https://arxiv.org/abs/2211.10904</a></p>
+<p><strong>Code Link:</strong><br><a target="_blank" rel="noopener" href="https://github.com/xyjigsaw/CENET">https://github.com/xyjigsaw/CENET</a></p>
+<p>OmegaXYZ.com<br>All rights reserved.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/technology/">technology</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/knowledge-graph/">knowledge graph</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">OmegaXYZ is licensed under a <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 Generic License</a>.</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/19/DeepScience:%20Forecasting%20Trends%20of%20the%20Science%20of%20Science/">
+                        <span class="hidden-mobile">DeepScience: Forecasting Trends of the Science of Science</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https://en.omegaxyz.com/2022/12/03/Paper-Temporal%20Knowledge-Graph-Reasoning-with-Historical-Contrastive-Learning/';
+        this.page.identifier = '/2022/12/03/Paper-Temporal%20Knowledge-Graph-Reasoning-with-Historical-Contrastive-Learning/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'fluid' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i> 2017-2023  <a href="https://www.omegaxyz.com" target="_blank" rel="nofollow noopener"><span>OmegaXYZ</span></a> <span> All rights reserved.</span> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-KKPRBT66HD', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKPRBT66HD"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-KKPRBT66HD');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

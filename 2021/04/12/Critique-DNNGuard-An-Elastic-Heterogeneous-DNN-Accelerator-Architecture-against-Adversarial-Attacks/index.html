@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/omegaxyz-logo-100.png">
+  <link rel="icon" type="image/png" href="/img/omegaxyz-logo-100.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="artificial intelligence">
+  <meta name="author" content="Reacubeth">
+  <meta name="keywords" content="artificial intelligence; finance">
+  <title>Critique: DNNGuard: An Elastic Heterogeneous DNN Accelerator Architecture against Adversarial Attacks - OmegaXYZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"en.omegaxyz.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":65,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-KKPRBT66HD","gtag":"G-KKPRBT66HD","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OmegaXYZ</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archive
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Category
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tag
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://cv.omegaxyz.com">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/xyjigsaw">
+                <i class="iconfont icon-github-fill"></i>
+                Github
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://www.omegaxyz.com">
+                <i class="iconfont icon-bookmark-fill"></i>
+                中文
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/blue.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Critique: DNNGuard: An Elastic Heterogeneous DNN Accelerator Architecture against Adversarial Attacks">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Reacubeth
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-12 21:07" pubdate>
+        Monday, April 12th 2021, 9:07 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k words
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       minutes
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Critique: DNNGuard: An Elastic Heterogeneous DNN Accelerator Architecture against Adversarial Attacks</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p><strong>Paper</strong>: Wang, Xingbin, et al. “Dnnguard: An elastic heterogeneous dnn accelerator architecture against adversarial attacks.” Proceedings of the Twenty-Fifth International Conference on Architectural Support for Programming Languages and Operating Systems. 2020.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3373376.3378532">Paper PDF</a></p>
+<p>From my perspective, it is a comprehensive paper that combines computer architecture, security, privacy, and artificial intelligence. My research interest is knowledge graph and social network, but I think this paper is suitable for every researcher in all fields of computer science and I hold a positive view of the proposed sophisticated architecture. Next, I will briefly introduce and analyze the work to better share the ideas.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Should we believe in machine learning and artificial intelligence? The work in this paper tries to solve the frequently occurring security problems in DNN which is a novel and emerging direction in computer science. Nowadays, the deep neural network is vulnerable to adversarial samples, but the existing DNN accelerators have many problems in the detection of adversarial samples’ attack, let alone memory cost, computational efficiency, and information security. Moreover, these mentioned accelerators do not provide effective support for the special calculations required for detection methods. These are the basic problems to be solved in this paper.</p>
+<p>This paper proposes an elastic heterogeneous DNN accelerator architecture called DNNGuard which consists of three key parts: 1) an elastic on-chip buffer management mechanism that can fully exploit the data locality, 2) an elastic PE computing resource management which makes the detection network execute faster than target network to avoid false prediction by identifying possible attacks timely while maximizing the utilization of computing resources 3) an extended AI instruction set to support the synchronization and communication mechanisms. All these parts have been carefully designed and experimentally verified.</p>
+<p>As I have mentioned above, in general, this paper focuses on the challenges of DNN security where injected malicious data like adversarial samples will cause disastrous consequences. As usual, the clarity, novelty, and technical correctness of the paper will be discussed in detail fairly.</p>
+<p><img src="https://raw.githubusercontent.com/xyjigsaw/image/master/upload/DNNGuard202104122126.jpeg" srcset="/img/loading.gif" alt=""></p>
+<h2 id="Clarity-amp-Organization"><a href="#Clarity-amp-Organization" class="headerlink" title="Clarity &amp; Organization"></a>Clarity &amp; Organization</h2><p>Generally speaking, the organization of this paper is clearly structured. Firstly, the authors give a whole overview of the introduction part. In order to illustrate readers to better understand the content of the article, the paper analyzes the existing adversarial sample defense methods and the requirements for accelerator architecture in Section 2. In Section 3, the framework of DNNGuard is presented with implementation details explained in Section 4. Like most papers, the authors evaluate the performance impacts and parameter sensitivity for DNNGuard in Section 5 and discuss various design issues in Section 6. At the end of the paper, the related work is reviewed in Section 7 before concluding the paper in Section 8. </p>
+<p>However, as far as I am concerned, I think the abstract part is slightly longer which covers the entire first page with other basic information. Specifically, the background in the abstract has nearly 100 words which look redundant. It is supposed to summarize the related preliminaries of the urgent security situation in two or three sentences while expressing the richest meaning with minimum words for the key ideas and methods of DNNGuard. If there is really something important related to the architecture that is not described, the authors can describe it in the main text.</p>
+<p>What needs to be pointed out is that there are many concepts, terminologies, and models in this paper such as Scheduler, PE, MAC, and CACC. The paper could be more reader-friendly to list these words like paper [1] did. </p>
+<p>Overall, this part is generally satisfactory in terms of clarity and organization.</p>
+<h2 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h2><p>Novelty is not only the core of all papers but also the focus of this critique. There is no doubt that this article has many innovations. </p>
+<p>First, in Section 3 and 4, the authors consider that there are two different networks (target network and detect network) need to be executed in the situation where adversary samples exist. In the realm of my knowledge, no accelerator architecture that can convert the serial execution of two networks into parallel execution. Therefore, I think the utilization of parallelism is the most significant contribution to this work. Since simply reusing the DNN accelerator does not achieve the highest efficiency, the authors thought of utilizing the CPU to do some serial tasks to ease the pressure on the DNN accelerator, but this will bring high latency caused by data movement. Moreover, due to the deterministic and sequential nature of the target network and the detection network’s processing flow, the authors do not use a complex handshake mechanism to synchronize and schedule the tasks. Instead, a scheduler within the DNN accelerator with an extended AI instruction set is creatively introduced in this paper to dynamically configure the PE and on-chip buffer resources. The author’s ability to find innovative solutions based on existing problems is worth learning. </p>
+<p>What’s more, we can see the architecture in Figure 2 (The DNNGuard Architecture Based on Elastic DNN Accelerator and CPU Core). Specially, we can find that the CPU core is mainly used for executing the special computing units while the elastic DNN accelerator core is composed of the scheduler, Soc Bus Interface, and the global buffers. One of the biggest advantages and innovations of DNNGuard is the global buffer which is the key to provide efficient data communication in such a complex architecture. Additionally, the authors have designed a complex storage model and corresponding data movement mechanism to effectively calculate these two neural networks simultaneously.</p>
+<p>In the discussion section (Section 6), the paper provides several interesting angles to totally analyze the architecture besides performance and effectiveness such as 1) the robust target network, 2) the adaptability to future algorithms, 3) the compatibility with the current DNN accelerator, and 4) the strong security. These aspects are also the critical ingredients of the proposed architecture.</p>
+<p>At the end of this part, I have two questions as follows:</p>
+<ul>
+<li>Regarding the training of the two networks, can the training of the detection network be combined with the training of the target network? That is to say, it is possible to integrate these two networks together furtherly considering that the target network is based on traditional DNN or other deep learning models and the detection network may be related to DNN or machine learning. </li>
+<li>Are there some new problems coming up the integrated design of DNNGuard architecture brings? It is an open problem. I think there is room for further improvement.</li>
+</ul>
+<h2 id="Technical-Correctness-and-Integrity-of-Experiments"><a href="#Technical-Correctness-and-Integrity-of-Experiments" class="headerlink" title="Technical Correctness and Integrity of Experiments"></a>Technical Correctness and Integrity of Experiments</h2><p>In this part, the experimental parts will be analyzed in detail where NVDLA[2] and RISCV[3] are employed to implement the accelerator of DNNGuard. </p>
+<p>As a new orchestrated architecture, it is supposed to evaluate the performance on different networks, the area and power it consumes compared to other existing architecture, and sensitivity related to the ratio of frame or bandwidth, etc. Fortunately, the experiments in the work demonstrate kinds of comprehensive evaluations. In addition to what I mentioned above, the work also compares the proposed architecture with others using Non-DNN Defense Methods on CPU. In the part of sensitivity analysis, the authors analyze the impacts of the number of PE, the buffer capacity, DRAM bandwidth, and LLC size of CPU which are the main factors to the whole performance.</p>
+<p>The paper lists many results in different experimental parts. Section 5.2 (Results on DNNGuard Architecture) and 5.3 (Detection Mechanism on DNNGuard) are the most important parts where the outcomes of the architecture prove the superiority of DNNGuard over other existing architecture in terms of the elastic NVDLA performance and DRAN access.</p>
+<p>However, the paper mentioned the protection for information security and privacy in neural networks. According to their theory, tightly coupling the DNN accelerator and the CPU core in a chip can effectively avoid side-channel information leakage of data interface compared with the deployment scheme of connecting two DNN accelerators through PCIe interface. Nevertheless, the whole paper only mentions the fact rather than theoretical analysis in Section 6. I still do not know why this can improve the security of information due to the limitations of my knowledge. The paper is supposed to leverage existing attack models to test and evaluate the security level of DNNGuard. Only in this way can readers be convinced.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In summary, this paper is an excellent work with significant contributions in the aspects of neural network architecture against adversarial attacks though there are a few unsatisfactory but trivial in the experimental part. </p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] Wu, Zonghan, et al. “A comprehensive survey on graph neural networks.” IEEE Transactions on Neural Networks and Learning Systems (2020).<br>[2] NVIDIA. Hardware architectural specification. <a target="_blank" rel="noopener" href="http://nvdla.org/hw/v1/hwarch.html">http://nvdla.org/hw/v1/hwarch.html</a>, 2018.<br>[3] Andrew Waterman, Yunsup Lee, David A Patterson, and Krste Asanovi. The risc-v instruction set manual. volume 1: User-level isa, version 2.0. Technical report, CALIFORNIA UNIV BERKELEY DEPT OF ELECTRICAL ENGINEERING AND COMPUTER SCIENCES, 2014.</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.omegaxyz.com/2021/03/31/dnn-guard/">Original</a> </p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/technology/">technology</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/computer-architecture/">computer architecture</a>
+                    
+                      <a class="hover-with-bg" href="/tags/paper/">paper</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">OmegaXYZ is licensed under a <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 Generic License</a>.</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/09/Image-Generation-with-Generative-Adversarial-Networks-GAN/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Image Generation with Generative Adversarial Networks (GAN)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/03/Critique-Think-fast-a-tensor-streaming-processor-TSP-for-accelerating-deep-learning-workloads/">
+                        <span class="hidden-mobile">Critique: Think fast: a tensor streaming processor (TSP) for accelerating deep learning workloads</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https://en.omegaxyz.com/2021/04/12/Critique-DNNGuard-An-Elastic-Heterogeneous-DNN-Accelerator-Architecture-against-Adversarial-Attacks/';
+        this.page.identifier = '/2021/04/12/Critique-DNNGuard-An-Elastic-Heterogeneous-DNN-Accelerator-Architecture-against-Adversarial-Attacks/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'fluid' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i> 2017-2023  <a href="https://www.omegaxyz.com" target="_blank" rel="nofollow noopener"><span>OmegaXYZ</span></a> <span> All rights reserved.</span> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-KKPRBT66HD', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKPRBT66HD"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-KKPRBT66HD');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
